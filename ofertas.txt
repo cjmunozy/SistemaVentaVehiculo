@@ -1,0 +1,4 @@
+GAA-0001|muchoscris@gmail.com|28000.0
+GCA-0001|ssaquisi@espol.edu.ec|70000.0
+GCA-0001|muchoscris@gmail.com|72000.0
+GMA-0001|ssaquisi@espol.edu.ec|2500.0

@@ -41,6 +41,7 @@ public class Usuario implements Serializable{
         if(tipoUsuario.equals(TipoUsuario.COMPRADOR))
             this.ofertas = new ArrayList<>();
     }
+
     
     public String getNombres() {
         return nombres;
@@ -358,7 +359,18 @@ public class Usuario implements Serializable{
         System.out.println("");
         return null;
     }
-    
+    public static Usuario comprobarCyC(ArrayList<Usuario> usuarios, String correoE, String contraseñaE) {
+    for (Usuario u : usuarios) {
+        if (correoE.equals(u.correo) && Utilitaria.claveHash(contraseñaE).equals(u.clave)) {
+            System.out.println("Correo y clave válidos");
+            System.out.println("");
+            return u;
+        }
+    }
+    System.out.println("Correo o clave incorrectos");
+    System.out.println("");
+    return null;
+}
     public void agregarOferta(Oferta o){
         this.ofertas.add(o);
     }

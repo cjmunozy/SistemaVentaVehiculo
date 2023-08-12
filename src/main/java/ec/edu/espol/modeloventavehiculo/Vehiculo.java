@@ -32,6 +32,7 @@ public class Vehiculo implements Serializable{
     protected double precio;
     protected TipoVehiculo tipoVehiculo;
     protected ArrayList<Oferta> listaOfertas;
+    private static final long serialVersionUID = 8799656478674716638L;
 
     public Vehiculo(String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, TipoVehiculo tipoVehiculo) {
         this.placa = placa;

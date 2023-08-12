@@ -5,7 +5,11 @@
 package ec.edu.espol.modeloventavehiculo;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +26,7 @@ public class Oferta implements Serializable{
     private String correo;
     private Usuario usuario;
     private double precio;
+    private static final long serialVersionUID = 8799656478674716638L;
 
     public Oferta(Vehiculo vehiculo, Usuario usuario, double precio) {
         this(vehiculo.getPlaca(), usuario.getCorreo(), precio);
@@ -90,26 +95,29 @@ public class Oferta implements Serializable{
         return Objects.equals(this.placa, other.placa) && Objects.equals(this.correo, other.correo);
     }
     
-    public void saveFile(String nomFile, boolean append){
-        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomFile), append)))
-        {
-           pw.println(this.placa+"|"+this.correo+"|"+this.precio);
+    public static void guardarArchivoOfertas(String nomFile, ArrayList<Oferta> ofertas){
+        try(ObjectOutputStream ous = new ObjectOutputStream(new FileOutputStream(nomFile))){
+           ous.writeObject(ofertas);
         }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-    
-    public static void saveFile(ArrayList<Oferta> ofertas, String nomFile){
-        for (int i = 0; i < ofertas.size(); i++){
-            if(i == 0)
-                ofertas.get(i).saveFile(nomFile, false);
-            else
-                ofertas.get(i).saveFile(nomFile, true);
+        catch (IOException ex){
+            System.out.println(ex.getMessage());
         }
     }
-    
+
     public static ArrayList<Oferta> cargarOfertas(String nomFile){
+        ArrayList<Oferta> ofertas = new ArrayList<>();
+        try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nomFile))){
+            ofertas = (ArrayList<Oferta>) ois.readObject();
+        }
+        catch(ClassNotFoundException ex1){
+            System.out.println(ex1.getMessage());
+        }catch(IOException ex2){
+            System.out.println(ex2.getMessage());
+        }
+        return ofertas;
+    }
+
+    public static ArrayList<Oferta> readFile(String nomFile){
         ArrayList<Oferta> ofertas = new ArrayList<>();
         try(Scanner sc = new Scanner(new File(nomFile)))
         {

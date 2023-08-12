@@ -29,6 +29,7 @@ public class Usuario implements Serializable{
     private String clave;
     private TipoUsuario tipoUsuario;
     private ArrayList<Oferta> ofertas;
+    private static final long serialVersionUID = 8799656478674716638L;
     
     public Usuario(String nombres, String apellidos, String organizacion, String correo, String clave, TipoUsuario tipoUsuario) {
         this.nombres = nombres;
@@ -332,7 +333,7 @@ public class Usuario implements Serializable{
                 vehiculo.agregarOferta(oferta);
                 ofertas.add(oferta);
                 u.agregarOferta(oferta);
-                oferta.saveFile("ofertas.txt", true);
+                Oferta.guardarArchivoOfertas("ofertas.ser", ofertas);
                 System.out.println("Su oferta ha sido realizada correctamente!");
                 System.out.println("");
             }
@@ -438,7 +439,7 @@ public class Usuario implements Serializable{
         Buzon b = new Buzon();
         b.enviarCorreo(oferta);
         oferta.eliminarOfertas(usuarios, ofertas);
-        Oferta.saveFile(ofertas, "ofertas.txt");
+        Oferta.guardarArchivoOfertas("ofertas.ser", ofertas);
         vehiculo.eliminarVehiculo(vehiculos);
         Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
     }

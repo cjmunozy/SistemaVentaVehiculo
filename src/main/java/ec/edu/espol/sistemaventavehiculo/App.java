@@ -39,11 +39,17 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        ArrayList<Usuario> usuarios = Usuario.readFile("usuarios.txt");
-        ArrayList<Vehiculo> vehiculos = Vehiculo.readFile("vehiculos.txt");
-        ArrayList<Oferta> ofertas = Oferta.cargarOfertas("ofertas.txt");
+        ArrayList<Usuario> usuarios = Usuario.cargarUsuarios("usuarios.ser");
+        ArrayList<Vehiculo> vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
+        ArrayList<Oferta> ofertas = Oferta.cargarOfertas("ofertas.ser");
         if(!ofertas.isEmpty())
             Utilitaria.relacionar(usuarios, vehiculos, ofertas);
+        for(Usuario u : usuarios)
+            System.out.println(u);
+        for(Vehiculo v : vehiculos)
+            System.out.println(v);
+        for(Oferta o : ofertas)
+            System.out.println(o);
         System.out.println("Bienvenido a VentaVehiculo");
         Scanner sc = new Scanner(System.in);
         sc.useDelimiter("\n");
@@ -67,7 +73,7 @@ public class App extends Application {
                     opcion = -1;
             }
         }while(opcion < 1 || opcion > 3);
-        launch();
+        //launch();
     }
 
 }

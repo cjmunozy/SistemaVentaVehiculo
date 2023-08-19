@@ -62,5 +62,9 @@ public class PantallaInicioController implements Initializable {
             }
         }
     }
+
+    @FXML
+    private void registrarUsuario(MouseEvent event) {
+    }
     
 }

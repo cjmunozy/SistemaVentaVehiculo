@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -155,6 +156,16 @@ public class Usuario implements Serializable{
             System.out.println(e.getMessage());
         }
         return usuarios;
+    }
+    
+    public void saveFile(String nomFile){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomFile), true)))
+        {
+           pw.println(this.nombres+"|"+this.apellidos+"|"+this.organizacion+"|"+this.correo+"|"+this.clave+"|"+this.tipoUsuario);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     
     public static int registrarComprador(ArrayList<Usuario> usuarios, Scanner sc){

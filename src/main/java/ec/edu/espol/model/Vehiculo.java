@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -139,6 +140,31 @@ public class Vehiculo implements Serializable{
         }
         
         return vehiculos;
+    }
+    
+    public void saveFile(String nomFile, boolean append){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomFile), append)))
+        {
+            pw.print(this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipoMotor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipoCombustible+"|"+this.precio);
+            if(this instanceof Camioneta)
+                pw.println("|CAMIONETA|"+((Camioneta) this).getVidrios()+"|"+((Camioneta) this).getTransmision()+"|"+((Camioneta) this).getTraccion());
+            else if(this instanceof Auto)
+                pw.println("|AUTO|"+((Auto) this).getVidrios()+"|"+((Auto) this).getTransmision());
+            else
+                pw.println("|MOTOCICLETA");
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void saveFile(ArrayList<Vehiculo> vehiculos, String nomFile){
+        for (int i = 0; i < vehiculos.size(); i++){
+            if(i == 0)
+                vehiculos.get(i).saveFile(nomFile, false);
+            else
+                vehiculos.get(i).saveFile(nomFile, true);
+        }
     }
     
     public static Vehiculo pedirDatosVehiculo(ArrayList<Vehiculo> vehiculos, Scanner sc){

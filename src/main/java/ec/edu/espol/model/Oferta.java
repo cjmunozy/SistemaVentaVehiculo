@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -133,6 +134,25 @@ public class Oferta implements Serializable{
         }
         
         return ofertas;
+    }
+        
+    public void saveFile(String nomFile, boolean append){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomFile), append)))
+        {
+           pw.println(this.placa+"|"+this.correo+"|"+this.precio);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static void saveFile(ArrayList<Oferta> ofertas, String nomFile){
+        for (int i = 0; i < ofertas.size(); i++){
+            if(i == 0)
+                ofertas.get(i).saveFile(nomFile, false);
+            else
+                ofertas.get(i).saveFile(nomFile, true);
+        }
     }
     
     public void eliminarOfertas(ArrayList<Usuario> usuarios, ArrayList<Oferta> ofertas) {

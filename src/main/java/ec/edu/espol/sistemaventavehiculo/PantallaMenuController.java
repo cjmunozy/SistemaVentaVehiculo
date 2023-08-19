@@ -53,13 +53,13 @@ public class PantallaMenuController implements Initializable {
                 
                 if (listaU.contains(uValido)) {
                     contraseña.setText("");
-                    Alert a = new Alert(Alert.AlertType.INFORMATION, "Credenciales correctos. Acceso aprobado");
+                    Alert a = new Alert(Alert.AlertType.INFORMATION, "Correo y contraseña correctos. Acceso aprobado");
                     a.setGraphic(new ImageView(this.getClass().getResource("checked.png").toString()));
                     a.setTitle("Bienvenido!");
                     a.show();
                 } else {
                     contraseña.setText("");
-                    Alert a = new Alert(Alert.AlertType.ERROR, "Credenciales incorrectas. Acceso denegado");
+                    Alert a = new Alert(Alert.AlertType.ERROR, "Correo o contraseña incorrectos.. Acceso denegado");
                     a.show();
                 }
             }

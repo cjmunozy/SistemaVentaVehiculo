@@ -61,7 +61,7 @@
    <left>
       <AnchorPane prefHeight="524.0" prefWidth="190.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="532.0" fitWidth="233.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="400.0" fitWidth="216.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@fondo.jpg" />
                </image>

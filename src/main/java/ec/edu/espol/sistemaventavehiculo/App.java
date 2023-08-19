@@ -1,9 +1,9 @@
 package ec.edu.espol.sistemaventavehiculo;
 
-import ec.edu.espol.modeloventavehiculo.Oferta;
-import ec.edu.espol.modeloventavehiculo.Usuario;
-import ec.edu.espol.modeloventavehiculo.Utilitaria;
-import ec.edu.espol.modeloventavehiculo.Vehiculo;
+import ec.edu.espol.model.Oferta;
+import ec.edu.espol.model.Usuario;
+import ec.edu.espol.model.Utilitaria;
+import ec.edu.espol.model.Vehiculo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +23,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("PantallaMenu"), 640, 400);
+        scene = new Scene(loadFXML("PantallaInicio"), 640, 400);
         stage.setScene(scene);
         stage.show();
     }
@@ -38,41 +38,40 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-//        ArrayList<Usuario> usuarios = Usuario.cargarUsuarios("usuarios.ser");
-//        ArrayList<Vehiculo> vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
-//        ArrayList<Oferta> ofertas = Oferta.cargarOfertas("ofertas.ser");
-//        if(!ofertas.isEmpty())
-//            Utilitaria.relacionar(usuarios, vehiculos, ofertas);
-//        for(Usuario u : usuarios)
-//            System.out.println(u);
-//        for(Vehiculo v : vehiculos)
-//            System.out.println(v);
-//        for(Oferta o : ofertas)
-//            System.out.println(o);
-//        System.out.println("Bienvenido a VentaVehiculo");
-//        Scanner sc = new Scanner(System.in);
-//        sc.useDelimiter("\n");
-//        sc.useLocale(Locale.US);
-//        int opcion;
-//        do{
-//            opcion = Utilitaria.MenuOpciones(sc);
-//            switch(opcion){
-//                case 1:
-//                    opcion = Utilitaria.OpcionesVendedor(usuarios, vehiculos, ofertas, sc);
-//                    break;
-//                case 2:
-//                    opcion = Utilitaria.OpcionesComprador(usuarios, vehiculos, ofertas, sc);
-//                    break;
-//                case 3:
-//                    System.out.println("\n ¡Gracias por utilizar nuestro sistema, esperamos verte en otra ocasión!");
-//                    break;
-//                default:
-//                    System.out.println("Opción no encontrada.");
-//                    System.out.println("");
-//                    opcion = -1;
-//            }
-//        }while(opcion < 1 || opcion > 3);
-        launch();
+        ArrayList<Usuario> usuarios = Usuario.cargarUsuarios("usuarios.ser");
+        ArrayList<Vehiculo> vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
+        ArrayList<Oferta> ofertas = Oferta.cargarOfertas("ofertas.ser");
+        if(!ofertas.isEmpty())
+            Utilitaria.relacionar(usuarios, vehiculos, ofertas);
+        for(Usuario u : usuarios)
+            System.out.println(u);
+        for(Vehiculo v : vehiculos)
+            System.out.println(v);
+        for(Oferta o : ofertas)
+            System.out.println(o);
+        System.out.println("Bienvenido a VentaVehiculo");
+        Scanner sc = new Scanner(System.in);
+        sc.useDelimiter("\n");
+        sc.useLocale(Locale.US);
+        int opcion;
+        do{
+            opcion = Utilitaria.MenuOpciones(sc);
+            switch(opcion){
+                case 1:
+                    opcion = Utilitaria.OpcionesVendedor(usuarios, vehiculos, ofertas, sc);
+                    break;
+                case 2:
+                    opcion = Utilitaria.OpcionesComprador(usuarios, vehiculos, ofertas, sc);
+                    break;
+                case 3:
+                    System.out.println("\n ¡Gracias por utilizar nuestro sistema, esperamos verte en otra ocasión!");
+                    break;
+                default:
+                    System.out.println("Opción no encontrada.");
+                    System.out.println("");
+                    opcion = -1;
+            }
+        }while(opcion < 1 || opcion > 3);
+//        launch();
     }
-
 }

@@ -410,37 +410,37 @@ public class Usuario implements Serializable{
         System.out.println("Vendedor registrado con éxito");
         return -1;
     }
-    
-    public static void ingresarNuevoVehiculo(ArrayList<Vehiculo> vehiculos, Scanner sc){
-        int numT;
-        Vehiculo v;
-        do{
-            System.out.println("\n--- TIPO DE VEHICULOS DISPONIBLES PARA REGISTRAR ---");
-            System.out.println("1. Motocicleta");
-            System.out.println("2. Auto");
-            System.out.println("3. Camioneta");
-            System.out.println("Ingrese el número del tipo de vehículo que desea registrar: ");
-            numT = sc.nextInt();
-            sc.nextLine();
-            switch(numT){
-                case 1:
-                    v = Vehiculo.pedirDatosVehiculo(vehiculos, sc);
-                    vehiculos.add(v);
-                    Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
-                    break;
-                case 2:
-                    v = Auto.pedirDatosAuto(vehiculos, sc);
-                    vehiculos.add(v);
-                    Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
-                    break;
-                case 3:
-                    v = Camioneta.pedirDatosCamioneta(vehiculos, sc);
-                    vehiculos.add(v);
-                    Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
-            }
-        }while(numT < 1 || numT > 3);
-        System.out.println("Vehículo registrado con éxito");
-    }
+//    
+//    public static void ingresarNuevoVehiculo(ArrayList<Vehiculo> vehiculos, Scanner sc){
+//        int numT;
+//        Vehiculo v;
+//        do{
+//            System.out.println("\n--- TIPO DE VEHICULOS DISPONIBLES PARA REGISTRAR ---");
+//            System.out.println("1. Motocicleta");
+//            System.out.println("2. Auto");
+//            System.out.println("3. Camioneta");
+//            System.out.println("Ingrese el número del tipo de vehículo que desea registrar: ");
+//            numT = sc.nextInt();
+//            sc.nextLine();
+//            switch(numT){
+//                case 1:
+//                    v = Vehiculo.pedirDatosVehiculo(vehiculos, sc);
+//                    vehiculos.add(v);
+//                    Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
+//                    break;
+//                case 2:
+//                    v = Auto.pedirDatosAuto(vehiculos, sc);
+//                    vehiculos.add(v);
+//                    Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
+//                    break;
+//                case 3:
+//                    v = Camioneta.pedirDatosCamioneta(vehiculos, sc);
+//                    vehiculos.add(v);
+//                    Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
+//            }
+//        }while(numT < 1 || numT > 3);
+//        System.out.println("Vehículo registrado con éxito");
+//    }
     
     public static void revisarOfertas(ArrayList<Usuario> usuarios, ArrayList<Oferta> ofertas, ArrayList<Vehiculo> vehiculos, Scanner sc) {
         System.out.println("Ingrese la placa del vehículo deseado para consultar qué ofertas se han realizado: ");

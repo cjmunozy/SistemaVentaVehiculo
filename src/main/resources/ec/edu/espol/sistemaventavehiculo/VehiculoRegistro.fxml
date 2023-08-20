@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.VehiculoRegistroController">
+   <top>
+      <AnchorPane prefHeight="147.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox layoutX="29.0" layoutY="62.0" prefHeight="54.0" prefWidth="542.0">
+               <children>
+                  <Button fx:id="auto" mnemonicParsing="false" onAction="#btnAuto" prefHeight="84.0" prefWidth="118.0" text="Auto">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="25.0" top="30.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="30.0" right="50.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="camioneta" mnemonicParsing="false" onAction="#btnCamioneta" prefHeight="82.0" prefWidth="122.0" text="Camioneta">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="30.0" right="50.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="moto" mnemonicParsing="false" onAction="#btnMoto" prefHeight="72.0" prefWidth="121.0" text="Moto">
+                     <padding>
+                        <Insets bottom="30.0" left="40.0" right="35.0" top="30.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <Label layoutX="201.0" layoutY="14.0" text="Registro de Nuevos Vehiculos" textFill="#0598ff">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="58.0" layoutY="40.0" text="Seleccione el tipo de vehiculo:" textFill="#0763a1" />
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>

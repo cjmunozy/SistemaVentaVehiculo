@@ -38,13 +38,8 @@ public class Auto extends Vehiculo {
         this.transmision = transmision;
     }
     
-    public static Auto pedirDatosAuto(ArrayList<Vehiculo> vehiculos, Scanner sc){
-        Vehiculo v = Vehiculo.pedirDatosVehiculo(vehiculos, sc);
-        System.out.println("Ingrese el número de vidrios: ");
-        int vidriosU = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Ingrese el tipo de transmisión: ");
-        String transmisionU = sc.nextLine();
-        return new Auto(v.placa, v.marca, v.modelo, v.tipoMotor, v.año, v.recorrido, v.color, v.tipoCombustible, v.precio, TipoVehiculo.AUTO, vidriosU, transmisionU);
+    public static Auto pedirDatosAuto(ArrayList<Vehiculo> vehiculos, String placa, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio, TipoVehiculo tipoVehiculo, int vidrios, String trasmision){
+        Vehiculo v = Vehiculo.pedirDatosVehiculo(vehiculos, placa, marca, modelo, motor, 0, 0, color, combustible, 0, tipoVehiculo);
+        return new Auto(v.placa, v.marca, v.modelo, v.tipoMotor, v.año, v.recorrido, v.color, v.tipoCombustible, v.precio, TipoVehiculo.AUTO, vidrios, trasmision);
     }  
 }

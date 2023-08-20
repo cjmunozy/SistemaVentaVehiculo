@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Objects;
 import java.util.Scanner;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -194,6 +195,18 @@ public class Vehiculo implements Serializable{
         sc.nextLine();
         return new Vehiculo(placaU, marcaU, modeloU, tipoMotorU, añoU, recorridoU, colorU, tipoCombustibleU, precioU, TipoVehiculo.MOTOCICLETA);
     }
+    
+    public static Vehiculo pedirDatosVehiculo(ArrayList<Vehiculo> vehiculos, String placa, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio, TipoVehiculo tipoVehiculo){
+        if(!Utilitaria.validarPlaca(vehiculos, placa)) {
+        Alert a = new Alert(Alert.AlertType.WARNING, "El vehículo ya existe");
+        a.show();
+        return null;
+    }
+
+        return new Vehiculo(placa, marca, modelo, motor, año, recorrido, color, combustible, precio, TipoVehiculo.MOTOCICLETA);
+
+    
+}
 
     public void eliminarVehiculo(ArrayList<Vehiculo> vehiculos) {
         if(vehiculos.contains(this))

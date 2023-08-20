@@ -74,9 +74,9 @@ public class Utilitaria {
                 case 2:
                     u = Usuario.comprobarCyC(usuarios, sc);
                     if(u != null)
-                        Usuario.ingresarNuevoVehiculo(vehiculos, sc);
+//                        Usuario.ingresarNuevoVehiculo(vehiculos, sc);
                     numEleccion = -1;
-                    break;
+//                    break;
                 case 3:
                     u = Usuario.comprobarCyC(usuarios, sc);
                     if(u != null)

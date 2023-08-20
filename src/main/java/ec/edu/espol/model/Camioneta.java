@@ -28,10 +28,9 @@ public class Camioneta extends Auto{
         this.traccion = traccion;
     }
 
-    public static Camioneta pedirDatosCamioneta(ArrayList<Vehiculo> vehiculos, Scanner sc){
-        Auto a = Auto.pedirDatosAuto(vehiculos, sc);
-        System.out.println("Ingrese la tracción: ");
-        String traccionU = sc.nextLine();
-        return new Camioneta(a.placa, a.marca, a.modelo, a.tipoMotor, a.año, a.recorrido, a.color, a.tipoCombustible, a.precio, TipoVehiculo.CAMIONETA, a.getVidrios(), a.getTransmision(), traccionU);
-    }   
+    public static Camioneta pedirDatosCamioneta(ArrayList<Vehiculo> vehiculos, String placa, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio, TipoVehiculo tipoVehiculo, int vidrios, String trasmision, String traccion){
+        Auto a = Auto.pedirDatosAuto(vehiculos,placa, marca, modelo, motor, año, recorrido, color, combustible, precio, tipoVehiculo, vidrios, trasmision);
+        
+        return new Camioneta(a.placa, a.marca, a.modelo, a.tipoMotor, a.año, a.recorrido, a.color, a.tipoCombustible, a.precio, TipoVehiculo.CAMIONETA, a.getVidrios(), a.getTransmision(), traccion);
+    }  
 }

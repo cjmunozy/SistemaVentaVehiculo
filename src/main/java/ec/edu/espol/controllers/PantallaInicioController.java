@@ -64,7 +64,11 @@ public class PantallaInicioController implements Initializable {
                         ex.getMessage();
                     }
                 });
-            
+             } else {
+                contraseña.setText("");
+                correo.setText("");
+                Alert b = new Alert(Alert.AlertType.ERROR, "El usuario que ingresó no existe.");
+                b.show();
         }}catch(IllegalArgumentException e) {
             correo.setText("");
             contraseña.setText("");

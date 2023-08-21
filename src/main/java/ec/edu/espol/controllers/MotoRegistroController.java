@@ -77,15 +77,15 @@ public class MotoRegistroController implements Initializable {
             Vehiculo nuevaMoto = Vehiculo.pedirDatosVehiculo(vehiculos, placaText, marcaText, modeloText, motorText, añoInt, recorridoDouble, colorText, combustibleText, precioDouble, TipoVehiculo.MOTOCICLETA);
             if (nuevaMoto != null) {
                 vehiculos.add(nuevaMoto);
-                Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
+                Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);;
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
                 a.show();
             }
         } catch (NumberFormatException e) {
-        Alert b = new Alert(Alert.AlertType.WARNING, "Por favor, ingrese valores numéricos válidos en los campos numéricos.");
+        Alert b = new Alert(Alert.AlertType.WARNING, "Valores ingresados incorrectos. Intente de nuevo.");
         b.show();
     } catch (IllegalArgumentException e) {
-        Alert alert = new Alert(Alert.AlertType.ERROR,"Rellena los campos");
+        Alert alert = new Alert(Alert.AlertType.ERROR,"Por favor, rellene todos los campos");
         alert.show();
     }
         }

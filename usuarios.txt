@@ -2,3 +2,4 @@ Cristhian|Munoz|ESPOL|cjmunoz@espol.edu.ec|93fd6995171d72d1aa04020fac50f5ddf3de7
 Silvia|Saquisili|ESPOL|ssaquisi@espol.edu.ec|b41576e8264fbe6b1676d3457012074bc844828d4ae7f0499a6f91398f6456d4|COMPRADOR
 Angie|Alfonso|ESPOL|aalfonso@espol.edu.ec|fe0e1db67aa1f7d3eebb083db350f0ec0519840a25c2ec280dd83d1ca971ea80|VENDEDOR
 Cristhian|Munoz|ESPOL|muchoscris@gmail.com|93fd6995171d72d1aa04020fac50f5ddf3de765831280d3271282bdc1a937863|COMPRADOR
+Carmen|Narea|ESPOL|cnarea@gmail.com|9af15b336e6a9619928537df30b2e6a2376569fcf9d7e773eccede65606529a0|COMPRADOR

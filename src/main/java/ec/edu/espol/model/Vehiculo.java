@@ -202,7 +202,6 @@ public class Vehiculo implements Serializable{
         a.show();
         return null;
     }
-
         return new Vehiculo(placa, marca, modelo, motor, año, recorrido, color, combustible, precio, TipoVehiculo.MOTOCICLETA);
 
     

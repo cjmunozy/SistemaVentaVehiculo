@@ -93,10 +93,10 @@ public class CamionetaRegistroController implements Initializable {
                 a.show();
             }
         } catch (NumberFormatException e) {
-        Alert b = new Alert(Alert.AlertType.WARNING, "Por favor, ingrese valores numéricos válidos en los campos numéricos.");
+        Alert b = new Alert(Alert.AlertType.WARNING, "Valores ingresados incorrectos. Intente de nuevo");
         b.show();
     } catch (IllegalArgumentException e) {
-        Alert alert = new Alert(Alert.AlertType.ERROR,"Rellena los campos");
+        Alert alert = new Alert(Alert.AlertType.ERROR,"Por favor, rellene todos los campos");
         alert.show();
     }
         }

@@ -4,6 +4,8 @@
  */
 package ec.edu.espol.model;
 
+import ec.edu.espol.controllers.PantallaInicioController;
+import ec.edu.espol.sistemaventavehiculo.App;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Objects;
 import java.util.Scanner;
+import javafx.scene.control.Alert;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -158,8 +162,8 @@ public class Usuario implements Serializable{
         return usuarios;
     }
     
-    public void saveFile(String nomFile){
-        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomFile), true)))
+    public void saveFile(String nomFile,boolean append){
+        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomFile), append)))
         {
            pw.println(this.nombres+"|"+this.apellidos+"|"+this.organizacion+"|"+this.correo+"|"+this.clave+"|"+this.tipoUsuario);
         }
@@ -167,6 +171,15 @@ public class Usuario implements Serializable{
             System.out.println(e.getMessage());
         }
     }
+    public static void saveFile(ArrayList<Usuario> usuarios, String nomFile){
+        for (int i = 0; i < usuarios.size(); i++){
+            if(i == 0)
+                usuarios.get(i).saveFile(nomFile, false);
+            else
+                usuarios.get(i).saveFile(nomFile, true);
+        }
+    }
+    
     
     public static int registrarComprador(ArrayList<Usuario> usuarios, Scanner sc){
         boolean validacion = false;
@@ -370,18 +383,49 @@ public class Usuario implements Serializable{
         System.out.println("");
         return null;
     }
-    public static Usuario comprobarCyC(ArrayList<Usuario> usuarios, String correoE, String contraseñaE) {
-    for (Usuario u : usuarios) {
-        if (correoE.equals(u.correo) && Utilitaria.claveHash(contraseñaE).equals(u.clave)) {
-            System.out.println("Correo y clave válidos");
-            System.out.println("");
-            return u;
+    public static Usuario registrarComprador(ArrayList<Usuario> usuarios, String nombre, String apellidos, String organizacion, String correo, String contra) throws IOException{
+        if(Utilitaria.validarCorreo(usuarios, correo)==false){
+            Alert a = new Alert(Alert.AlertType.ERROR,"El usuario ingresado ya existe");
+            a.show();
+            return null;
         }
+            Usuario uNuevo = new Usuario(nombre, apellidos, organizacion, correo, Utilitaria.claveHash(contra),TipoUsuario.COMPRADOR);
+            usuarios.add(uNuevo);
+            Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Usuario registrado exitosamente.");
+            a.show();
+            App.setRoot("MenuComprador");
+            return uNuevo;
+    
     }
-    System.out.println("Correo o clave incorrectos");
-    System.out.println("");
-    return null;
-}
+    public static Usuario registrarVendedor(ArrayList<Usuario> usuarios, String nombre, String apellidos, String organizacion, String correo, String contra) throws IOException{
+        if(Utilitaria.validarCorreo(usuarios, correo)==false){
+            Alert a = new Alert(Alert.AlertType.ERROR,"El usuario ya existe");
+            a.show();
+            return null;
+        }
+        Usuario uNuevo = new Usuario(nombre, apellidos, organizacion, correo, Utilitaria.claveHash(contra),TipoUsuario.VENDEDOR);
+        usuarios.add(uNuevo);
+        Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Usuario registrado exitosamente.");
+        a.show();
+        return uNuevo;
+ 
+    }
+    public static Usuario comprobarCyC(ArrayList<Usuario> usuarios, String correoE, String contraseñaE) {
+    for (Usuario u: usuarios){
+            if (correoE.equals(u.correo) && Utilitaria.claveHash(contraseñaE).equals(u.clave)){
+                Alert a = new Alert(Alert.AlertType.INFORMATION, "Correo y contraseña correctos. Acceso aprobado");
+                a.setGraphic(new ImageView(App.class.getResource("/img/checked.png").toString()));
+                a.setTitle("Bienvenido!");
+                a.show();
+                return u;
+            }
+        }
+        return null;
+    }
+
+
     public void agregarOferta(Oferta o){
         this.ofertas.add(o);
     }

@@ -129,7 +129,6 @@ public class Utilitaria {
     public static boolean validarCorreo(ArrayList<Usuario> usuarios, String correo){
         for(Usuario u : usuarios){
             if(correo.equals(u.getCorreo())){
-                System.out.println("NO PUEDE REGISTRAR ESTE CORREO PORQUE YA EXISTE EN LA BASE DE DATOS");
                 return false;
             }
         }

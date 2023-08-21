@@ -5,7 +5,6 @@
 package ec.edu.espol.model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *

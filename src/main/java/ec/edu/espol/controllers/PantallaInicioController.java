@@ -40,45 +40,34 @@ public class PantallaInicioController implements Initializable {
     }    
 
     @FXML
-    private void ingresar(MouseEvent event) {
+    private void ingresar(MouseEvent event) throws IOException {
+        try{
         String correoNuevo = correo.getText();
         String contra= contraseña.getText();
-        ArrayList<Usuario> listaU = App.getUsuarios();
-        if (correoNuevo.isEmpty() || contra.isEmpty()) {
-            contraseña.setText("");
-            correo.setText("");
-            Alert b = new Alert(Alert.AlertType.WARNING, "Asegúrese de rellenar todos los campos.");
-            b.show();
-        } else {
-            Usuario uValido = Usuario.comprobarCyC(listaU, correoNuevo, contra);
-            if (listaU.contains(uValido)) {
-                contraseña.setText("");
-                App.setUsuario(uValido);
-                Alert a = new Alert(Alert.AlertType.INFORMATION, "Correo y contraseña correctos. Acceso aprobado");
-                a.setGraphic(new ImageView(this.getClass().getResource("/img/checked.png").toString()));
-                a.setTitle("Bienvenido!");
-                a.show();
-                a.setOnCloseRequest(e -> {
-                    try {
-                        if(uValido.getTipoUsuario().equals(TipoUsuario.VENDEDOR))
-                            App.setRoot("MenuVendedor");
-                        else
-                            App.setRoot("MenuComprador");
-                    } catch (IOException ex) {
-                        ex.getMessage();
-                    }
-                });
+        ArrayList<Usuario> listaU = Usuario.cargarUsuarios("usuarios.ser");
+        if (correoNuevo.isEmpty() || contra.isEmpty()) throw new IllegalArgumentException();
+        Usuario uValido = Usuario.comprobarCyC(listaU, correoNuevo, contra);
+        if (uValido!=null) {
+            if(uValido.getTipoUsuario().equals(TipoUsuario.VENDEDOR))
+                App.setRoot("MenuVendedor");
+            else
+                App.setRoot("MenuComprador");
             } else {
                 contraseña.setText("");
                 correo.setText("");
                 Alert a = new Alert(Alert.AlertType.ERROR, "Correo o contraseña incorrectos.. Acceso denegado");
-                a.show();
-            }
+                a.show();    
+        }}catch(IllegalArgumentException e) {
+            correo.setText("");
+            contraseña.setText("");
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Por favor, rellene todos los campos");
+            alert.show();
         }
     }
 
     @FXML
-    private void registrarUsuario(MouseEvent event) {
+    private void registroUsuario(MouseEvent event) throws IOException {
+        App.setRoot("CompradorRegistro");
     }
     
 }

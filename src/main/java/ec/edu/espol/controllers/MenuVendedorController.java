@@ -38,7 +38,9 @@ public class MenuVendedorController implements Initializable {
     }    
 
     @FXML
-    private void registrarVendedor(MouseEvent event) {
+    private void registrarVendedor(MouseEvent event) throws IOException {
+        
+        App.setRoot("VendedorRegistro");
     }
 
     @FXML

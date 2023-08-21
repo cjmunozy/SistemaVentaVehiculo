@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.PantallaInicioController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.CompradorRegistroController">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -30,38 +30,33 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="57.99997558593748" minHeight="10.0" prefHeight="57.19998779296873" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="38.80002441406248" minHeight="10.0" prefHeight="31.600012207031227" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="correo" promptText="   Correo Electrónico" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <PasswordField fx:id="contraseña" promptText="   Contraseña" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label opacity="0.62" text="Inicie sesión para continuar" textFill="#0598ff" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+            <TextField fx:id="correo" prefHeight="28.0" prefWidth="242.0" promptText="Correo Electrónico" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <PasswordField fx:id="contraseña" promptText="Contraseña" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label opacity="0.62" text="Regístrate para continuar" textFill="#0598ff" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label prefHeight="26.0" prefWidth="316.0" text="¡BIENVENIDO A LA VENTA DE VEHICULO!" textFill="#0598ff" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Label prefHeight="26.0" prefWidth="316.0" text="¡BIENVENIDO A LA VENTA DE VEHICULO!" textFill="#0598ff" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" onMouseClicked="#ingresar" prefHeight="39.0" prefWidth="75.0" style="-fx-background-color: #0598ff;" text="Ingresar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="TOP">
+            <Button mnemonicParsing="false" onMouseClicked="#registrar" prefHeight="39.0" prefWidth="75.0" style="-fx-background-color: #0598ff;" text="Registrar" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                <font>
                   <Font size="14.0" />
                </font>
-            </Button>
-            <ImageView fitHeight="72.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <image>
-                  <Image url="@../../../../img/logo.png" />
-               </image>
-            </ImageView>
-            <Label text="No tienes una cuenta?" textFill="#0e5684d6" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label onMouseClicked="#registroUsuario" text="Cree una" textFill="#0598ff" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets left="120.0" />
+                  <Insets />
                </GridPane.margin>
-            </Label>
+            </Button>
+            <TextField fx:id="apellido" prefHeight="28.0" prefWidth="242.0" promptText="Apellidos" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="nombre" prefHeight="28.0" prefWidth="242.0" promptText="Nombres" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="organizacion" prefHeight="28.0" prefWidth="242.0" promptText="Organización" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </center>

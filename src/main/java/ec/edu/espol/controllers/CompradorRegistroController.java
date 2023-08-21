@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.model.TipoUsuario;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.sistemaventavehiculo.App;
 import java.io.IOException;
@@ -62,8 +63,19 @@ public class CompradorRegistroController implements Initializable {
                 organizacion.setText("");
                 nombre.setText("");
                 apellido.setText("");
-                App.setRoot("MenuComprador");
-                }
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Usuario registrado exitosamente.");
+                a.show();
+                a.setOnCloseRequest(e -> {
+                    try {
+                        if(usuarioNuevo.getTipoUsuario().equals(TipoUsuario.VENDEDOR))
+                            App.setRoot("MenuVendedor");
+                        else
+                            App.setRoot("MenuComprador");
+                    } catch (IOException ex) {
+                        ex.getMessage();
+                   }
+                });
+   }
         }catch(IllegalArgumentException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR,"Por favor, rellene todos los campos");
             alert.show();

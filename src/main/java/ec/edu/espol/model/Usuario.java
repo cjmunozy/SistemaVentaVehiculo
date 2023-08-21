@@ -392,33 +392,24 @@ public class Usuario implements Serializable{
             Usuario uNuevo = new Usuario(nombre, apellidos, organizacion, correo, Utilitaria.claveHash(contra),TipoUsuario.COMPRADOR);
             usuarios.add(uNuevo);
             Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Usuario registrado exitosamente.");
-            a.show();
-            App.setRoot("MenuComprador");
             return uNuevo;
     
     }
     public static Usuario registrarVendedor(ArrayList<Usuario> usuarios, String nombre, String apellidos, String organizacion, String correo, String contra) throws IOException{
         if(Utilitaria.validarCorreo(usuarios, correo)==false){
-            Alert a = new Alert(Alert.AlertType.ERROR,"El usuario ya existe");
+            Alert a = new Alert(Alert.AlertType.ERROR,"El usuario ingresado ya existe");
             a.show();
             return null;
         }
         Usuario uNuevo = new Usuario(nombre, apellidos, organizacion, correo, Utilitaria.claveHash(contra),TipoUsuario.VENDEDOR);
         usuarios.add(uNuevo);
         Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Usuario registrado exitosamente.");
-        a.show();
         return uNuevo;
  
     }
     public static Usuario comprobarCyC(ArrayList<Usuario> usuarios, String correoE, String contraseñaE) {
     for (Usuario u: usuarios){
             if (correoE.equals(u.correo) && Utilitaria.claveHash(contraseñaE).equals(u.clave)){
-                Alert a = new Alert(Alert.AlertType.INFORMATION, "Correo y contraseña correctos. Acceso aprobado");
-                a.setGraphic(new ImageView(App.class.getResource("/img/checked.png").toString()));
-                a.setTitle("Bienvenido!");
-                a.show();
                 return u;
             }
         }

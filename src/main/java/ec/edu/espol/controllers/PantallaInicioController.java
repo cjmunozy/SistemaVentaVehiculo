@@ -47,16 +47,24 @@ public class PantallaInicioController implements Initializable {
         ArrayList<Usuario> listaU = Usuario.cargarUsuarios("usuarios.ser");
         if (correoNuevo.isEmpty() || contra.isEmpty()) throw new IllegalArgumentException();
         Usuario uValido = Usuario.comprobarCyC(listaU, correoNuevo, contra);
-        if (uValido!=null) {
-            if(uValido.getTipoUsuario().equals(TipoUsuario.VENDEDOR))
-                App.setRoot("MenuVendedor");
-            else
-                App.setRoot("MenuComprador");
-            } else {
+        if (listaU.contains(uValido)) {
                 contraseña.setText("");
-                correo.setText("");
-                Alert a = new Alert(Alert.AlertType.ERROR, "Correo o contraseña incorrectos.. Acceso denegado");
-                a.show();    
+                App.setUsuario(uValido);
+                Alert a = new Alert(Alert.AlertType.INFORMATION, "Correo y contraseña correctos. Acceso aprobado");
+                a.setGraphic(new ImageView(this.getClass().getResource("/img/checked.png").toString()));
+                a.setTitle("Bienvenido!");
+                a.show();
+                a.setOnCloseRequest(e -> {
+                    try {
+                        if(uValido.getTipoUsuario().equals(TipoUsuario.VENDEDOR))
+                            App.setRoot("MenuVendedor");
+                        else
+                            App.setRoot("MenuComprador");
+                    } catch (IOException ex) {
+                        ex.getMessage();
+                    }
+                });
+            
         }}catch(IllegalArgumentException e) {
             correo.setText("");
             contraseña.setText("");

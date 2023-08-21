@@ -18,17 +18,52 @@ import java.util.Scanner;
  * JavaFX App
  */
 public class App extends Application {
-
     private static Scene scene;
+    private static ArrayList<Usuario> usuarios;
+    private static ArrayList<Vehiculo> vehiculos;
+    private static ArrayList<Oferta> ofertas;
+    private static Usuario usuario;
 
+    public static Scene getScene() {
+        return scene;
+    }
+
+    public static ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public static ArrayList<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public static ArrayList<Oferta> getOfertas() {
+        return ofertas;
+    }
+
+    public static Usuario getUsuario() {
+        return usuario;
+    }
+
+    public static void setUsuario(Usuario usuario) {
+        App.usuario = usuario;
+    }
+    
+    @Override
+    public void init(){
+        usuarios = Usuario.cargarUsuarios("usuarios.ser");
+        vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
+        ofertas = Oferta.cargarOfertas("ofertas.ser");
+    }
+    
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("VehiculoRegistro"), 640, 200);
+        scene = new Scene(loadFXML("PantallaInicio"), 600, 400);
         stage.setScene(scene);
+        stage.setTitle("Venta Vehículo");
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 

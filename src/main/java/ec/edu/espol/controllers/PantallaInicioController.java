@@ -4,7 +4,10 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.model.TipoUsuario;
 import ec.edu.espol.model.Usuario;
+import ec.edu.espol.sistemaventavehiculo.App;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -40,7 +43,7 @@ public class PantallaInicioController implements Initializable {
     private void ingresar(MouseEvent event) {
         String correoNuevo = correo.getText();
         String contra= contraseña.getText();
-        ArrayList<Usuario> listaU = Usuario.cargarUsuarios("usuarios.ser");
+        ArrayList<Usuario> listaU = App.getUsuarios();
         if (correoNuevo.isEmpty() || contra.isEmpty()) {
             contraseña.setText("");
             correo.setText("");
@@ -50,10 +53,21 @@ public class PantallaInicioController implements Initializable {
             Usuario uValido = Usuario.comprobarCyC(listaU, correoNuevo, contra);
             if (listaU.contains(uValido)) {
                 contraseña.setText("");
+                App.setUsuario(uValido);
                 Alert a = new Alert(Alert.AlertType.INFORMATION, "Correo y contraseña correctos. Acceso aprobado");
                 a.setGraphic(new ImageView(this.getClass().getResource("/img/checked.png").toString()));
                 a.setTitle("Bienvenido!");
                 a.show();
+                a.setOnCloseRequest(e -> {
+                    try {
+                        if(uValido.getTipoUsuario().equals(TipoUsuario.VENDEDOR))
+                            App.setRoot("MenuVendedor");
+                        else
+                            App.setRoot("MenuComprador");
+                    } catch (IOException ex) {
+                        ex.getMessage();
+                    }
+                });
             } else {
                 contraseña.setText("");
                 correo.setText("");

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.MenuVendedorController">
+   <left>
+      <AnchorPane prefHeight="524.0" prefWidth="190.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="216.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/fondo.jpg" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+   </left>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Elija una opción" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="120.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <TilePane hgap="80.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="imgViewVendedor" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#registrarVendedor" pickOnBounds="true" preserveRatio="true">
+                     <TilePane.margin>
+                        <Insets />
+                     </TilePane.margin>
+                     <image>
+                        <Image url="@../../../../img/registrar%20vendedor.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgViewVehiculo" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#registrarVehiculo" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/registrar%20vehiculo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TilePane>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="80.0">
+               <children>
+                  <Label contentDisplay="CENTER" text="Registrar nuevo vendedor" />
+                  <Label text="Registrar nuevo vehículo" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <TilePane hgap="80.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="imgViewOferta" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#aceptarOferta" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/aceptar%20oferta.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="imgViewSesion" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#cerrarSesion" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/cerrar%20sesion.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </TilePane>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="130.0">
+               <children>
+                  <Label text="Aceptar oferta" />
+                  <Label text="Cerrar sesión" />
+               </children>
+               <padding>
+                  <Insets left="40.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

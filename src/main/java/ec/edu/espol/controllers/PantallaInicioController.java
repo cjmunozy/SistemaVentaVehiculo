@@ -53,17 +53,8 @@ public class PantallaInicioController implements Initializable {
                 Alert a = new Alert(Alert.AlertType.INFORMATION, "Correo y contraseña correctos. Acceso aprobado");
                 a.setGraphic(new ImageView(this.getClass().getResource("/img/checked.png").toString()));
                 a.setTitle("Bienvenido!");
-                a.show();
-                a.setOnCloseRequest(e -> {
-                    try {
-                        if(uValido.getTipoUsuario().equals(TipoUsuario.VENDEDOR))
-                            App.setRoot("MenuVendedor");
-                        else
-                            App.setRoot("MenuComprador");
-                    } catch (IOException ex) {
-                        ex.getMessage();
-                    }
-                });
+                a.showAndWait();
+                App.setRoot("MenuVendedor");
              } else {
                 contraseña.setText("");
                 correo.setText("");
@@ -79,7 +70,7 @@ public class PantallaInicioController implements Initializable {
 
     @FXML
     private void registroUsuario(MouseEvent event) throws IOException {
-        App.setRoot("CompradorRegistro");
+        App.setRoot("UsuarioRegistro");
     }
     
 }

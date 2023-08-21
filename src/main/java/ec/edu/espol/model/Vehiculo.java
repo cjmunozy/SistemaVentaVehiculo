@@ -198,8 +198,6 @@ public class Vehiculo implements Serializable{
     
     public static Vehiculo pedirDatosVehiculo(ArrayList<Vehiculo> vehiculos, String placa, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio, TipoVehiculo tipoVehiculo){
         if(!Utilitaria.validarPlaca(vehiculos, placa)) {
-        Alert a = new Alert(Alert.AlertType.WARNING, "El vehículo ya existe");
-        a.show();
         return null;
     }
         return new Vehiculo(placa, marca, modelo, motor, año, recorrido, color, combustible, precio, TipoVehiculo.MOTOCICLETA);

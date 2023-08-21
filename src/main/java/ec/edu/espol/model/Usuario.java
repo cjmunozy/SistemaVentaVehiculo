@@ -32,19 +32,15 @@ public class Usuario implements Serializable{
     private String organizacion;
     private String correo;
     private String clave;
-    private TipoUsuario tipoUsuario;
     private ArrayList<Oferta> ofertas;
     private static final long serialVersionUID = 8799656478674716638L;
     
-    public Usuario(String nombres, String apellidos, String organizacion, String correo, String clave, TipoUsuario tipoUsuario) {
+    public Usuario(String nombres, String apellidos, String organizacion, String correo, String clave) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.organizacion = organizacion;
         this.correo = correo;
         this.clave = clave;
-        this.tipoUsuario = tipoUsuario;
-        if(tipoUsuario.equals(TipoUsuario.COMPRADOR))
-            this.ofertas = new ArrayList<>();
     }
 
     
@@ -86,14 +82,6 @@ public class Usuario implements Serializable{
 
     public void setClave(String clave) {
         this.clave = clave;
-    }
-
-    public TipoUsuario getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
     }
 
     public ArrayList<Oferta> getOfertas() {
@@ -149,10 +137,7 @@ public class Usuario implements Serializable{
                 Usuario u;
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
-                if(tokens[5].equals("VENDEDOR"))
-                    u = new Usuario(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], TipoUsuario.VENDEDOR);
-                else
-                    u = new Usuario(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], TipoUsuario.COMPRADOR);
+                u = new Usuario(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4]);
                 usuarios.add(u);
             }
         }
@@ -165,7 +150,7 @@ public class Usuario implements Serializable{
     public void saveFile(String nomFile,boolean append){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomFile), append)))
         {
-           pw.println(this.nombres+"|"+this.apellidos+"|"+this.organizacion+"|"+this.correo+"|"+this.clave+"|"+this.tipoUsuario);
+           pw.println(this.nombres+"|"+this.apellidos+"|"+this.organizacion+"|"+this.correo+"|"+this.clave+"|");
         }
         catch (Exception e){
             System.out.println(e.getMessage());
@@ -198,7 +183,7 @@ public class Usuario implements Serializable{
         }while(validacion == false);
         System.out.println("Ingrese la clave: ");
         String claveU = sc.nextLine();
-        Usuario uNuevo = new Usuario(nombresU, apellidosU, organizacionU, correoU, Utilitaria.claveHash(claveU), TipoUsuario.COMPRADOR);
+        Usuario uNuevo = new Usuario(nombresU, apellidosU, organizacionU, correoU, Utilitaria.claveHash(claveU));
         usuarios.add(uNuevo);
         Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
         System.out.println("Usuario registrado con éxito");
@@ -383,13 +368,13 @@ public class Usuario implements Serializable{
         System.out.println("");
         return null;
     }
-    public static Usuario registrarComprador(ArrayList<Usuario> usuarios, String nombre, String apellidos, String organizacion, String correo, String contra) throws IOException{
+    public static Usuario registrarUsuario(ArrayList<Usuario> usuarios, String nombre, String apellidos, String organizacion, String correo, String contra) throws IOException{
         if(Utilitaria.validarCorreo(usuarios, correo)==false){
             Alert a = new Alert(Alert.AlertType.ERROR,"El usuario ingresado ya existe");
             a.show();
             return null;
         }
-            Usuario uNuevo = new Usuario(nombre, apellidos, organizacion, correo, Utilitaria.claveHash(contra),TipoUsuario.COMPRADOR);
+            Usuario uNuevo = new Usuario(nombre, apellidos, organizacion, correo, Utilitaria.claveHash(contra));
             usuarios.add(uNuevo);
             Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
             return uNuevo;
@@ -401,7 +386,7 @@ public class Usuario implements Serializable{
             a.show();
             return null;
         }
-        Usuario uNuevo = new Usuario(nombre, apellidos, organizacion, correo, Utilitaria.claveHash(contra),TipoUsuario.VENDEDOR);
+        Usuario uNuevo = new Usuario(nombre, apellidos, organizacion, correo, Utilitaria.claveHash(contra));
         usuarios.add(uNuevo);
         Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
         return uNuevo;
@@ -439,7 +424,7 @@ public class Usuario implements Serializable{
         }while(validacion == false);
         System.out.println("Ingrese la clave:");
         String claveU = sc.nextLine();
-        Usuario uNuevo = new Usuario(nombresU, apellidosU, organizacionU, correoU, Utilitaria.claveHash(claveU), TipoUsuario.VENDEDOR);
+        Usuario uNuevo = new Usuario(nombresU, apellidosU, organizacionU, correoU, Utilitaria.claveHash(claveU));
         usuarios.add(uNuevo);
         Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
         System.out.println("Vendedor registrado con éxito");

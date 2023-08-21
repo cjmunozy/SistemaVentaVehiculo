@@ -8,6 +8,8 @@ import ec.edu.espol.model.Auto;
 import ec.edu.espol.model.TipoVehiculo;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
+import ec.edu.espol.sistemaventavehiculo.App;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -56,7 +58,7 @@ public class AutoRegistroController implements Initializable {
     }    
 
     @FXML
-    private void registrar(MouseEvent event) {
+    private void registrar(MouseEvent event) throws IOException {
         try{
         String marcaText = marca.getText();
         String placaText = placa.getText();
@@ -82,13 +84,18 @@ public class AutoRegistroController implements Initializable {
         int vidriosText = Integer.parseInt(vidriosTextStr);
 
         ArrayList<Vehiculo> vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
-         Auto nuevoVehiculo = Auto.pedirDatosAuto(vehiculos, placaText, marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, TipoVehiculo.AUTO, vidriosText, transmisionText);
+        Auto nuevoVehiculo = Auto.pedirDatosAuto(vehiculos, placaText, marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, TipoVehiculo.AUTO, vidriosText, transmisionText);
     if (nuevoVehiculo != null) {
         vehiculos.add(nuevoVehiculo);
         Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
+        limpiarCampos();
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
-        a.show();
+        a.showAndWait();
     }
+    } catch (NullPointerException e) {
+        limpiarCampos();
+        Alert a = new Alert(Alert.AlertType.WARNING, "El vehículo ya existe");
+        a.show();
     } catch (NumberFormatException e) {
         Alert b = new Alert(Alert.AlertType.WARNING, "Valores ingresados incorrectos. Intente de nuevo");
         b.show();
@@ -96,14 +103,27 @@ public class AutoRegistroController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR,"Por favor, rellene todos los campos");
         alert.show();
     }
-        }}
+        }
+
+    private void limpiarCampos(){
+        placa.setText("");
+        recorrido.setText("");
+        año.setText("");
+        marca.setText("");
+        motor.setText("");
+        color.setText("");
+        modelo.setText("");
+        precio.setText("");
+        combustible.setText("");
+        transmision.setText("");
+        vidrios.setText("");
+        
+}
 
 
 
 
 
 
-
-
-    
+}
 

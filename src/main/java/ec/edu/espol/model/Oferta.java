@@ -164,10 +164,9 @@ public class Oferta implements Serializable{
             }
         }
         for(Usuario u : usuarios){
-            if(u.getTipoUsuario().equals(TipoUsuario.COMPRADOR)){
                 if(u.getOfertas().contains(this))
                     u.getOfertas().remove(this);
             }
         }
     }
-}
+

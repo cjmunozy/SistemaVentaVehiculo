@@ -23,7 +23,7 @@ import javafx.scene.input.MouseEvent;
  *
  * @author hyunj
  */
-public class VendedorRegistroController implements Initializable {
+public class UsuarioRegistroController implements Initializable {
 
 
     @FXML
@@ -56,7 +56,7 @@ public class VendedorRegistroController implements Initializable {
             nombreStr.isEmpty() || organizacionStr.isEmpty()){ throw new IllegalArgumentException(); 
         }
             ArrayList<Usuario> usuarios = Usuario.cargarUsuarios("usuarios.ser");
-            Usuario usuarioNuevo = Usuario.registrarVendedor(usuarios, nombreStr, apellidoStr, organizacionStr, correoStr, contraStr);
+            Usuario usuarioNuevo = Usuario.registrarUsuario(usuarios, nombreStr, apellidoStr, organizacionStr, correoStr, contraStr);
             if (usuarioNuevo != null) {
                 correo.setText("");
                 contraseña.setText("");
@@ -64,22 +64,17 @@ public class VendedorRegistroController implements Initializable {
                 nombre.setText("");
                 apellido.setText("");
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION,"Usuario registrado exitosamente.");
-                a.show();
-                a.setOnCloseRequest(e -> {
-                    try {
-                        if(usuarioNuevo.getTipoUsuario().equals(TipoUsuario.VENDEDOR))
-                            App.setRoot("MenuVendedor");
-                        else
-                            App.setRoot("MenuComprador");
-                    } catch (IOException ex) {
-                        ex.getMessage();
-                   }
-                });
-   }
+                a.showAndWait();
+            }
         }catch(IllegalArgumentException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR,"Por favor, rellene todos los campos");
             alert.show();
         }
+    }
+
+    @FXML
+    private void regresar(MouseEvent event) throws IOException {
+        App.setRoot("MenuVendedor");
     }
 
 }

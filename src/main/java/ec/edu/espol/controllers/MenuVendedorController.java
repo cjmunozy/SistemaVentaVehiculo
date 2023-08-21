@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
@@ -40,7 +41,7 @@ public class MenuVendedorController implements Initializable {
     @FXML
     private void registrarVendedor(MouseEvent event) throws IOException {
         
-        App.setRoot("VendedorRegistro");
+        App.setRoot("UsuarioRegistro");
     }
 
     @FXML
@@ -49,7 +50,9 @@ public class MenuVendedorController implements Initializable {
     }
 
     @FXML
-    private void aceptarOferta(MouseEvent event) {
+    private void aceptarOferta(MouseEvent event) throws IOException {
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Nada por ahora");
+        a.show();
     }
 
     @FXML

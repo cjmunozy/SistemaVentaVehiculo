@@ -7,11 +7,15 @@ package ec.edu.espol.controllers;
 import ec.edu.espol.model.Camioneta;
 import ec.edu.espol.model.TipoVehiculo;
 import ec.edu.espol.model.Vehiculo;
+import ec.edu.espol.sistemaventavehiculo.App;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -51,7 +55,7 @@ public class MotoRegistroController implements Initializable {
     }    
 
     @FXML
-    private void registrar(MouseEvent event) {
+    private void registrar(MouseEvent event) throws IOException {
         try{
         String marcaText = marca.getText();
         String placaText = placa.getText();
@@ -77,10 +81,15 @@ public class MotoRegistroController implements Initializable {
             Vehiculo nuevaMoto = Vehiculo.pedirDatosVehiculo(vehiculos, placaText, marcaText, modeloText, motorText, añoInt, recorridoDouble, colorText, combustibleText, precioDouble, TipoVehiculo.MOTOCICLETA);
             if (nuevaMoto != null) {
                 vehiculos.add(nuevaMoto);
-                Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);;
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
-                a.show();
-            }
+                Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
+        limpiarCampos();
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
+        a.showAndWait();
+    }
+    } catch (NullPointerException e) {
+        limpiarCampos();
+        Alert a = new Alert(Alert.AlertType.WARNING, "El vehículo ya existe");
+        a.show();
         } catch (NumberFormatException e) {
         Alert b = new Alert(Alert.AlertType.WARNING, "Valores ingresados incorrectos. Intente de nuevo.");
         b.show();
@@ -88,7 +97,20 @@ public class MotoRegistroController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.ERROR,"Por favor, rellene todos los campos");
         alert.show();
     }
-        }
+}
+    
+    private void limpiarCampos() {
+    marca.setText("");
+    placa.setText("");
+    recorrido.setText("");
+    año.setText("");
+    motor.setText("");
+    color.setText("");
+    modelo.setText("");
+    precio.setText("");
+    combustible.setText("");
+}
+
 }
 
     

@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.sistemaventavehiculo.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,7 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -64,6 +68,14 @@ public class VehiculoRegistroController implements Initializable {
         stage.setHeight(600);
         BorderPane view = FXMLLoader.load(getClass().getResource("/ec/edu/espol/sistemaventavehiculo/MotoRegistro.fxml"));
         mainPane.setCenter(view);
+    }
+
+    @FXML
+    private void regresar(MouseEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setHeight(435);
+        App.setRoot("MenuVendedor");
+
     }
     
 }

@@ -155,7 +155,6 @@ public class Utilitaria {
 
     public static void relacionar(ArrayList<Usuario> usuarios, ArrayList<Vehiculo> vehiculos, ArrayList<Oferta> ofertas){
         for(Usuario u : usuarios){
-            if(u.getTipoUsuario().equals(TipoUsuario.COMPRADOR)){
                 for(Oferta o : ofertas){
                     if(o.getCorreo().equals(u.getCorreo())){
                         o.setUsuario(u);
@@ -163,7 +162,6 @@ public class Utilitaria {
                     }
                 }
             }
-        }
         for(Vehiculo v : vehiculos){
             for(Oferta o : ofertas){
                 if(o.getPlaca().equals(v.getPlaca())){

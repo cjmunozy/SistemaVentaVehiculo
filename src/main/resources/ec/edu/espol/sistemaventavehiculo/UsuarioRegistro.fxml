@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.VendedorRegistroController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.UsuarioRegistroController">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -57,6 +57,14 @@
             <TextField fx:id="apellido" prefHeight="28.0" prefWidth="242.0" promptText="Apellidos" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="nombre" prefHeight="28.0" prefWidth="242.0" promptText="Nombres" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="organizacion" prefHeight="28.0" prefWidth="242.0" promptText="Organización" style="-fx-background-color: transparent; -fx-border-color: #0598ff; -fx-border-width: 0px 0px 2px 0px;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ImageView fitHeight="46.0" fitWidth="35.0" onMouseClicked="#regresar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../../../../img/regresar.jpg" />
+               </image>
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin>
+            </ImageView>
          </children>
       </GridPane>
    </center>

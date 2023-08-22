@@ -268,7 +268,65 @@ public class Usuario implements Serializable{
         }
     return vehiculosPorBusqueda;
     }
+    
+    public static ArrayList<Vehiculo> busquedaDeVehiculo(ArrayList<Vehiculo> vehiculos, int tipo, String recoMinString, String recoMaxString, String añoMinString, String añoMaxString, String precMinString, String precMaxString){
+        ArrayList<Vehiculo> vehiculosPorBusqueda = new ArrayList<>();
+        double recoMin = 0;
+        if (!recoMinString.equals("")) {
+            recoMin = Double.parseDouble(recoMinString);
+        }
 
+        double recoMax = Double.MAX_VALUE;
+        if (!recoMaxString.equals("")) {
+            recoMax = Double.parseDouble(recoMaxString);
+        }
+
+        int añoMin = 1900;
+        if (!añoMinString.equals("")) {
+            añoMin = Integer.parseInt(añoMinString);
+        }
+
+        int añoMax = LocalDate.now().getYear() + 1;
+        if (!añoMaxString.equals("")) {
+            añoMax = Integer.parseInt(añoMaxString);
+        }
+
+        double precMin = 0;
+        if (!precMinString.equals("")) {
+            precMin = Double.parseDouble(precMinString);
+        }
+
+        double precMax = Double.MAX_VALUE;
+        if (!precMaxString.equals("")) {
+            precMax = Double.parseDouble(precMaxString);
+        }
+        
+        String tipoVehiculo = "";
+        for(Vehiculo v : vehiculos){
+            switch(tipo){
+                case 1:
+                    tipoVehiculo = "MOTOCICLETA";
+                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                        vehiculosPorBusqueda.add(v);
+                    break;
+                case 2:
+                    tipoVehiculo = "AUTO";
+                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                        vehiculosPorBusqueda.add(v);
+                    break;
+                case 3:
+                    tipoVehiculo = "CAMIONETA";
+                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                        vehiculosPorBusqueda.add(v);
+                    break;
+                default:
+                    if(encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                        vehiculosPorBusqueda.add(v);
+            }
+        }
+    return vehiculosPorBusqueda;
+    }
+    
     public static boolean encontrarVehiculos(Vehiculo vehiculo,double recoMin,double recoMax,int añoMin,int añoMax,double precMin,double precMax){
         boolean recorrido = Utilitaria.enRango(vehiculo.recorrido, recoMin, recoMax);
         boolean años = Utilitaria.enRango(vehiculo.año, añoMin, añoMax);

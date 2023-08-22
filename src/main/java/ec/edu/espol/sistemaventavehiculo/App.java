@@ -53,6 +53,12 @@ public class App extends Application {
         usuarios = Usuario.cargarUsuarios("usuarios.ser");
         vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
         ofertas = Oferta.cargarOfertas("ofertas.ser");
+        for(Usuario u : usuarios)
+            System.out.println(u);
+        for(Vehiculo v : vehiculos)
+            System.out.println(v);
+        for(Oferta o : ofertas)
+            System.out.println(o);
     }
     
     @Override
@@ -74,7 +80,8 @@ public class App extends Application {
 
     public static void main(String[] args) {
 //        ArrayList<Usuario> usuarios = Usuario.cargarUsuarios("usuarios.ser");
-//        ArrayList<Vehiculo> vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
+////        ArrayList<Vehiculo> vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
+//        ArrayList<Vehiculo> vehiculos = Vehiculo.readFile("vehiculos.txt");
 //        ArrayList<Oferta> ofertas = Oferta.cargarOfertas("ofertas.ser");
 //        if(!ofertas.isEmpty())
 //            Utilitaria.relacionar(usuarios, vehiculos, ofertas);

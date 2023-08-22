@@ -54,7 +54,7 @@ public class PantallaInicioController implements Initializable {
                 a.setGraphic(new ImageView(this.getClass().getResource("/img/checked.png").toString()));
                 a.setTitle("Bienvenido!");
                 a.showAndWait();
-                App.setRoot("MenuVendedor");
+                App.setRoot("Menu");
              } else {
                 contraseña.setText("");
                 correo.setText("");

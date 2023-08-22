@@ -19,14 +19,14 @@ import javafx.scene.input.MouseEvent;
  *
  * @author crisj
  */
-public class MenuVendedorController implements Initializable {
+public class MenuController implements Initializable {
 
     @FXML
-    private ImageView imgViewVendedor;
+    private ImageView imgViewRealizarOferta;
     @FXML
     private ImageView imgViewVehiculo;
     @FXML
-    private ImageView imgViewOferta;
+    private ImageView imgViewAceptarOferta;
     @FXML
     private ImageView imgViewSesion;
 
@@ -39,9 +39,8 @@ public class MenuVendedorController implements Initializable {
     }    
 
     @FXML
-    private void registrarVendedor(MouseEvent event) throws IOException {
-        
-        App.setRoot("UsuarioRegistro");
+    private void realizarOferta(MouseEvent event) throws IOException {
+        App.setRoot("BuscarVehiculo");
     }
 
     @FXML

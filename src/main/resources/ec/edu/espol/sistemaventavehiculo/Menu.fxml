@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.MenuVendedorController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.MenuController">
    <left>
       <AnchorPane prefHeight="524.0" prefWidth="190.0" BorderPane.alignment="CENTER">
          <children>
@@ -27,7 +27,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label text="Elija una opción" textAlignment="CENTER">
+                  <Label text="Elija una opción" textAlignment="CENTER" textFill="#059bff">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -42,12 +42,12 @@
             </HBox>
             <TilePane hgap="80.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="imgViewVendedor" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#registrarVendedor" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgViewRealizarOferta" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#realizarOferta" pickOnBounds="true" preserveRatio="true">
                      <TilePane.margin>
                         <Insets />
                      </TilePane.margin>
                      <image>
-                        <Image url="@../../../../img/registrar%20vendedor.png" />
+                        <Image url="@../../../../img/realizar%20oferta.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="imgViewVehiculo" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#registrarVehiculo" pickOnBounds="true" preserveRatio="true">
@@ -62,16 +62,16 @@
             </TilePane>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="80.0">
                <children>
-                  <Label contentDisplay="CENTER" text="Registrar nuevo vendedor" />
+                  <Label contentDisplay="CENTER" text="Ofertar por vehículo" />
                   <Label text="Registrar nuevo vehículo" />
                </children>
                <VBox.margin>
-                  <Insets />
+                  <Insets left="20.0" />
                </VBox.margin>
             </HBox>
-            <TilePane hgap="80.0" prefHeight="200.0" prefWidth="200.0">
+            <TilePane hgap="85.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="imgViewOferta" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#aceptarOferta" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgViewAceptarOferta" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#aceptarOferta" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../img/aceptar%20oferta.png" />
                      </image>
@@ -83,7 +83,7 @@
                   </ImageView>
                </children>
                <VBox.margin>
-                  <Insets left="5.0" />
+                  <Insets />
                </VBox.margin>
             </TilePane>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="130.0">

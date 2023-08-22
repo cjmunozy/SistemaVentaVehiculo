@@ -306,4 +306,28 @@ public class Vehiculo implements Serializable{
             System.out.println("Transmisión: " + ((Auto) this).getTransmision());
         }
     }
+    
+    public String reunirDetallesVehiculo(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Información del vehículo:");
+        sb.append("\nPlaca: " + this.placa);
+        sb.append("\nMarca: " + this.marca);
+        sb.append("\nTipo de Motor: " + this.tipoMotor);
+        sb.append("\nModelo: " + this.modelo);
+        sb.append("\nAño: " + this.año);
+        sb.append("\nTipo de Combustible: " +  this.tipoCombustible);
+        sb.append("\nColor: " + this.color);
+        sb.append("\nRecorrido: " + this.recorrido);
+        sb.append("\nPrecio: " + this.precio);
+        sb.append("\nTipo de Vehículo: " + this.tipoVehiculo);
+        if(this instanceof Camioneta){
+            sb.append("\nVidrios: " + ((Auto) this).getVidrios());
+            sb.append("\nTransmisión: " + ((Auto) this).getTransmision());
+            sb.append("\nTracción: " + ((Camioneta) this).getTraccion());
+        }else if(this instanceof Auto){
+            sb.append("\nVidrios: " + ((Auto) this).getVidrios());
+            sb.append("\nTransmisión: " + ((Auto) this).getTransmision());
+        }
+        return sb.toString();
+    }
 }

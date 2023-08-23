@@ -42,7 +42,7 @@
             </HBox>
             <TilePane hgap="80.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="imgViewRealizarOferta" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#realizarOferta" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgViewRealizarOferta" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#buscarVehiculo" pickOnBounds="true" preserveRatio="true">
                      <TilePane.margin>
                         <Insets />
                      </TilePane.margin>
@@ -62,7 +62,7 @@
             </TilePane>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="80.0">
                <children>
-                  <Label contentDisplay="CENTER" text="Ofertar por vehículo" />
+                  <Label contentDisplay="CENTER" text="Busqueda de vehículo" />
                   <Label text="Registrar nuevo vehículo" />
                </children>
                <VBox.margin>

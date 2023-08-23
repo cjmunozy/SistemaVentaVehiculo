@@ -74,7 +74,7 @@ public class VehiculoRegistroController implements Initializable {
     private void regresar(MouseEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setHeight(435);
-        App.setRoot("MenuVendedor");
+        App.setRoot("Menu");
 
     }
     

@@ -74,7 +74,7 @@ public class UsuarioRegistroController implements Initializable {
 
     @FXML
     private void regresar(MouseEvent event) throws IOException {
-        App.setRoot("MenuVendedor");
+        App.setRoot("PantallaInicio");
     }
 
 }

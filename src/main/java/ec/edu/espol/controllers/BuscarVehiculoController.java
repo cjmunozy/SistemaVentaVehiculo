@@ -9,6 +9,7 @@ import ec.edu.espol.model.TipoVehiculo;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
 import ec.edu.espol.sistemaventavehiculo.App;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -70,7 +71,7 @@ public class BuscarVehiculoController implements Initializable {
             String precMaxString = precMax.getText();
             vehiculosFiltrados = Usuario.busquedaDeVehiculo(App.getVehiculos(), tipo, recoMinString, recoMaxString, añoMinString, añoMaxString, precMinString, precMaxString);
             if (!vehiculosFiltrados.isEmpty()) {
-                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                Alert a = new Alert(Alert.AlertType.INFORMATION);
                 a.setHeaderText("Búsqueda realizada con éxito");
                 StringBuilder informacion = new StringBuilder();
                 informacion.append("");
@@ -90,6 +91,7 @@ public class BuscarVehiculoController implements Initializable {
             Alert a = new Alert(Alert.AlertType.WARNING, "Lo sentimos ningún vehículo coincide con sus criterios de búsqueda.");
             a.show();
         } catch (NumberFormatException e) {
+            limpiarCampos() ;
             Alert b = new Alert(Alert.AlertType.WARNING, "Valores ingresados incorrectos. Intente de nuevo");
             b.show();
         }
@@ -113,5 +115,10 @@ public class BuscarVehiculoController implements Initializable {
             return 2;
         else
             return 1;
+    }
+
+    @FXML
+    private void regresar(MouseEvent event) throws IOException {
+       App.setRoot("Menu");
     }
 }

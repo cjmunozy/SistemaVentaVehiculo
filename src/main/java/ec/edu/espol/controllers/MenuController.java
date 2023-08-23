@@ -39,7 +39,7 @@ public class MenuController implements Initializable {
     }    
 
     @FXML
-    private void realizarOferta(MouseEvent event) throws IOException {
+    private void buscarVehiculo(MouseEvent event) throws IOException {
         App.setRoot("BuscarVehiculo");
     }
 

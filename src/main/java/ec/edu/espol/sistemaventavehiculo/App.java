@@ -53,6 +53,8 @@ public class App extends Application {
         usuarios = Usuario.cargarUsuarios("usuarios.ser");
         vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
         ofertas = Oferta.cargarOfertas("ofertas.ser");
+        if(!ofertas.isEmpty())
+            Utilitaria.relacionar(usuarios, vehiculos, ofertas);
         for(Usuario u : usuarios)
             System.out.println(u);
         for(Vehiculo v : vehiculos)

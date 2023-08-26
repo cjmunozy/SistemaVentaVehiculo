@@ -6,6 +6,7 @@ package ec.edu.espol.controllers;
 
 import ec.edu.espol.model.TipoVehiculo;
 import ec.edu.espol.model.Vehiculo;
+import ec.edu.espol.sistemaventavehiculo.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,8 +54,8 @@ public class MotoRegistroController implements Initializable {
     @FXML
     private void registrar(MouseEvent event) throws IOException {
         try{
-        String marcaText = marca.getText();
         String placaText = placa.getText();
+        String marcaText = marca.getText();
         String recorridoText = recorrido.getText();
         String añoText = año.getText();
         String motorText = motor.getText();
@@ -73,11 +74,10 @@ public class MotoRegistroController implements Initializable {
         int añoInt = Integer.parseInt(añoText);
         double precioDouble = Double.parseDouble(precioText);
 
-            ArrayList<Vehiculo> vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
-            Vehiculo nuevaMoto = Vehiculo.pedirDatosVehiculo(vehiculos, placaText, marcaText, modeloText, motorText, añoInt, recorridoDouble, colorText, combustibleText, precioDouble, TipoVehiculo.MOTOCICLETA);
+            Vehiculo nuevaMoto = Vehiculo.pedirDatosVehiculo(App.getVehiculos(), placaText, marcaText, modeloText, motorText, añoInt, recorridoDouble, colorText, combustibleText, precioDouble);
             if (nuevaMoto != null) {
-                vehiculos.add(nuevaMoto);
-                Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
+                App.getVehiculos().add(nuevaMoto);
+                Vehiculo.guardarArchivoVehiculos("vehiculos.ser", App.getVehiculos());
         limpiarCampos();
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
         a.showAndWait();

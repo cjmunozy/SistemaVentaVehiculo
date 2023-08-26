@@ -7,6 +7,7 @@ package ec.edu.espol.controllers;
 import ec.edu.espol.model.Camioneta;
 import ec.edu.espol.model.TipoVehiculo;
 import ec.edu.espol.model.Vehiculo;
+import ec.edu.espol.sistemaventavehiculo.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class CamionetaRegistroController implements Initializable {
             if (marcaText.isEmpty() || placaText.isEmpty() || recorridoTextStr.isEmpty() ||
                 añoTextStr.isEmpty() || motorText.isEmpty() || colorText.isEmpty() ||
                 modeloText.isEmpty() || precioTextStr.isEmpty() || combustibleText.isEmpty() ||
-                traccionText.isEmpty()) {
+                transmisionText.isEmpty() || vidriosTextStr.isEmpty() || traccionText.isEmpty()) {
                 throw new IllegalArgumentException("Por favor, complete todos los campos.");
             }
 
@@ -84,12 +85,11 @@ public class CamionetaRegistroController implements Initializable {
             int añoText = Integer.parseInt(añoTextStr);
             double precioText = Double.parseDouble(precioTextStr);
             int vidriosText = Integer.parseInt(vidriosTextStr);
-
-            ArrayList<Vehiculo> vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
-            Camioneta nuevaCamioneta = Camioneta.pedirDatosCamioneta(vehiculos, placaText, marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, TipoVehiculo.CAMIONETA, vidriosText, transmisionText, traccionText);
+            
+            Camioneta nuevaCamioneta = Camioneta.pedirDatosCamioneta(App.getVehiculos(), placaText, marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, vidriosText, transmisionText, traccionText);
             if (nuevaCamioneta != null) {
-                vehiculos.add(nuevaCamioneta);
-                Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
+                App.getVehiculos().add(nuevaCamioneta);
+                Vehiculo.guardarArchivoVehiculos("vehiculos.ser", App.getVehiculos());
         limpiarCampos();
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
         a.showAndWait();

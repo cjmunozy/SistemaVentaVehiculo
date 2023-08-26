@@ -13,6 +13,7 @@ import java.util.Scanner;
  */
 public class Camioneta extends Auto{
     private String traccion;
+    private static final long serialVersionUID = 8799656478674716638L;
 
     public Camioneta(String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color,
                 String tipoCombustible, double precio, TipoVehiculo tipoVehiculo, int vidrios, String transmision, String traccion) {
@@ -27,10 +28,16 @@ public class Camioneta extends Auto{
     public void setTraccion(String traccion) {
         this.traccion = traccion;
     }
+    
+    public static Camioneta pedirDatosCamioneta(ArrayList<Vehiculo> vehiculos, Scanner sc){
+        Auto a = Auto.pedirDatosAuto(vehiculos, sc);
+        System.out.println("Ingrese la tracción: ");
+        String traccionU = sc.nextLine();
+        return new Camioneta(a.placa, a.marca, a.modelo, a.tipoMotor, a.año, a.recorrido, a.color, a.tipoCombustible, a.precio, TipoVehiculo.CAMIONETA, a.getVidrios(), a.getTransmision(), traccionU);
+    }  
 
-    public static Camioneta pedirDatosCamioneta(ArrayList<Vehiculo> vehiculos, String placa, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio, TipoVehiculo tipoVehiculo, int vidrios, String trasmision, String traccion){
-        Auto a = Auto.pedirDatosAuto(vehiculos,placa, marca, modelo, motor, año, recorrido, color, combustible, precio, tipoVehiculo, vidrios, trasmision);
-        
+    public static Camioneta pedirDatosCamioneta(ArrayList<Vehiculo> vehiculos, String placa, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio, int vidrios, String trasmision, String traccion){
+        Auto a = Auto.pedirDatosAuto(vehiculos,placa, marca, modelo, motor, año, recorrido, color, combustible, precio, vidrios, trasmision);
         return new Camioneta(a.placa, a.marca, a.modelo, a.tipoMotor, a.año, a.recorrido, a.color, a.tipoCombustible, a.precio, TipoVehiculo.CAMIONETA, a.getVidrios(), a.getTransmision(), traccion);
     }  
 }

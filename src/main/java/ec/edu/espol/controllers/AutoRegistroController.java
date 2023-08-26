@@ -7,6 +7,7 @@ package ec.edu.espol.controllers;
 import ec.edu.espol.model.Auto;
 import ec.edu.espol.model.TipoVehiculo;
 import ec.edu.espol.model.Vehiculo;
+import ec.edu.espol.sistemaventavehiculo.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -72,8 +73,9 @@ public class AutoRegistroController implements Initializable {
 
         if (marcaText.isEmpty() || placaText.isEmpty() || recorridoTextStr.isEmpty() ||
             añoTextStr.isEmpty() || motorText.isEmpty() || colorText.isEmpty() ||
-            modeloText.isEmpty() || precioTextStr.isEmpty() || combustibleText.isEmpty()) {
-            throw new IllegalArgumentException(); 
+            modeloText.isEmpty() || precioTextStr.isEmpty() || combustibleText.isEmpty() ||
+            transmisionText.isEmpty() || vidriosTextStr.isEmpty()) {
+            throw new IllegalArgumentException();
         }
 
         double recorridoText = Double.parseDouble(recorridoTextStr);
@@ -81,11 +83,10 @@ public class AutoRegistroController implements Initializable {
         double precioText = Double.parseDouble(precioTextStr);
         int vidriosText = Integer.parseInt(vidriosTextStr);
 
-        ArrayList<Vehiculo> vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
-        Auto nuevoVehiculo = Auto.pedirDatosAuto(vehiculos, placaText, marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, TipoVehiculo.AUTO, vidriosText, transmisionText);
+        Auto nuevoVehiculo = Auto.pedirDatosAuto(App.getVehiculos(), placaText, marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, vidriosText, transmisionText);
     if (nuevoVehiculo != null) {
-        vehiculos.add(nuevoVehiculo);
-        Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
+        App.getVehiculos().add(nuevoVehiculo);
+        Vehiculo.guardarArchivoVehiculos("vehiculos.ser", App.getVehiculos());
         limpiarCampos();
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
         a.showAndWait();

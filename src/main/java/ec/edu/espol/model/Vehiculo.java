@@ -197,14 +197,11 @@ public class Vehiculo implements Serializable{
         return new Vehiculo(placaU, marcaU, modeloU, tipoMotorU, añoU, recorridoU, colorU, tipoCombustibleU, precioU, TipoVehiculo.MOTOCICLETA);
     }
     
-    public static Vehiculo pedirDatosVehiculo(ArrayList<Vehiculo> vehiculos, String placa, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio, TipoVehiculo tipoVehiculo){
-        if(!Utilitaria.validarPlaca(vehiculos, placa)) {
-        return null;
+    public static Vehiculo pedirDatosVehiculo(ArrayList<Vehiculo> vehiculos, String placa, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio){
+        if(!Utilitaria.validarPlaca(vehiculos, placa))
+            return null;
+        return new Vehiculo(placa, marca, modelo, motor, año, recorrido, color, combustible, precio, TipoVehiculo.MOTOCICLETA); 
     }
-        return new Vehiculo(placa, marca, modelo, motor, año, recorrido, color, combustible, precio, TipoVehiculo.MOTOCICLETA);
-
-    
-}
 
     public void eliminarVehiculo(ArrayList<Vehiculo> vehiculos) {
         if(vehiculos.contains(this))

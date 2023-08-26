@@ -302,32 +302,77 @@ public class Usuario implements Serializable{
         }
         
         String tipoVehiculo = "";
-        for(Vehiculo v : vehiculos){
-            switch(tipo){
-                case 1:
-                    tipoVehiculo = "MOTOCICLETA";
-                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
-                        vehiculosPorBusqueda.add(v);
-                    break;
-                case 2:
-                    tipoVehiculo = "AUTO";
-                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
-                        vehiculosPorBusqueda.add(v);
-                    break;
-                case 3:
-                    tipoVehiculo = "CAMIONETA";
-                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
-                        vehiculosPorBusqueda.add(v);
-                    break;
-                default:
-                    if(encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
-                        vehiculosPorBusqueda.add(v);
-            }
+//        for(Vehiculo v : vehiculos){
+//            switch(tipo){
+//                case 1:
+//                    tipoVehiculo = "MOTOCICLETA";
+//                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+//                        vehiculosPorBusqueda.add(v);
+//                    break;
+//                case 2:
+//                    tipoVehiculo = "AUTO";
+//                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+//                        vehiculosPorBusqueda.add(v);
+//                    break;
+//                case 3:
+//                    tipoVehiculo = "CAMIONETA";
+//                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+//                        vehiculosPorBusqueda.add(v);
+//                    break;
+//                default:
+//                    if(encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+//                        vehiculosPorBusqueda.add(v);
+//            }
+//            System.out.println("Vehículo tipo: " + v.tipoVehiculo );
+////        }
+//    }
+//    
+    for (Vehiculo v : vehiculos) {
+        switch (tipo) {
+            case 1: 
+                tipoVehiculo = "MOTOCICLETA";
+                if (v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
+                    vehiculosPorBusqueda.add(v);
+                }
+                break;
+            case 2: 
+                tipoVehiculo = "AUTO";
+                if (v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
+                    vehiculosPorBusqueda.add(v);
+                }
+                break;
+            case 6: 
+                tipoVehiculo = "CAMIONETA";
+                if (v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
+                    vehiculosPorBusqueda.add(v);
+                }
+                break;
+            case 7: 
+                if (encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
+                    vehiculosPorBusqueda.add(v);
+                }
+                break;
+            case 5: 
+                if ((v.tipoVehiculo.equals(TipoVehiculo.AUTO) || v.tipoVehiculo.equals(TipoVehiculo.CAMIONETA)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
+                    vehiculosPorBusqueda.add(v);
+                }
+                break;
+            case 4:
+                if ((v.tipoVehiculo.equals(TipoVehiculo.AUTO) || v.tipoVehiculo.equals(TipoVehiculo.MOTOCICLETA)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
+                    vehiculosPorBusqueda.add(v);
+                }
+                break;
+            case 3: 
+                if ((v.tipoVehiculo.equals(TipoVehiculo.CAMIONETA) || v.tipoVehiculo.equals(TipoVehiculo.MOTOCICLETA)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
+                    vehiculosPorBusqueda.add(v);
+                }
+                break;
         }
-    return vehiculosPorBusqueda;
+    }
+        return vehiculosPorBusqueda;
     }
     
-    public static boolean encontrarVehiculos(Vehiculo vehiculo,double recoMin,double recoMax,int añoMin,int añoMax,double precMin,double precMax){
+public static boolean encontrarVehiculos(Vehiculo vehiculo,double recoMin,double recoMax,int añoMin,int añoMax,double precMin,double precMax){
         boolean recorrido = Utilitaria.enRango(vehiculo.recorrido, recoMin, recoMax);
         boolean años = Utilitaria.enRango(vehiculo.año, añoMin, añoMax);
         boolean precio = Utilitaria.enRango(vehiculo.precio, precMin, precMax);

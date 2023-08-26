@@ -19,6 +19,7 @@ import java.util.Scanner;
  */
 public class App extends Application {
     private static Scene scene;
+    private static Stage st;
     private static ArrayList<Usuario> usuarios;
     private static ArrayList<Vehiculo> vehiculos;
     private static ArrayList<Oferta> ofertas;
@@ -65,19 +66,22 @@ public class App extends Application {
     
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("PantallaInicio"), 600, 400);
+        scene = new Scene(loadFXML("PantallaInicio").load(), 600, 400);
         stage.setScene(scene);
         stage.setTitle("Venta Vehículo");
         stage.show();
     }
 
     public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        scene.setRoot(loadFXML(fxml).load());
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static void setScene(Scene sc) throws IOException {
+        st.setScene(sc);
+    }
+     public static FXMLLoader loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        return fxmlLoader;
     }
 
     public static void main(String[] args) {

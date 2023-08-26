@@ -6,9 +6,7 @@ package ec.edu.espol.controllers;
 
 import ec.edu.espol.model.Auto;
 import ec.edu.espol.model.TipoVehiculo;
-import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
-import ec.edu.espol.sistemaventavehiculo.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;

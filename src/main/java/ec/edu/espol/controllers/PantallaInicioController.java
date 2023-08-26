@@ -4,7 +4,6 @@
  */
 package ec.edu.espol.controllers;
 
-import ec.edu.espol.model.TipoUsuario;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.sistemaventavehiculo.App;
 import java.io.IOException;

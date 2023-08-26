@@ -4,8 +4,6 @@
  */
 package ec.edu.espol.controllers;
 
-import ec.edu.espol.model.Camioneta;
-import ec.edu.espol.model.TipoVehiculo;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
 import ec.edu.espol.sistemaventavehiculo.App;
@@ -14,7 +12,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
@@ -60,9 +61,10 @@ public class BuscarVehiculoController implements Initializable {
     }    
     
     @FXML
-    private void buscar(MouseEvent event) {
+    private void buscar(MouseEvent event) throws IOException {
         try {
             int tipo = opcionesChk();
+            System.out.println("Opcion seleccionada:"+tipo);
             String recoMinString = recoMin.getText();
             String recoMaxString = recoMax.getText();
             String añoMinString = añoMin.getText();
@@ -70,31 +72,23 @@ public class BuscarVehiculoController implements Initializable {
             String precMinString = precMin.getText();
             String precMaxString = precMax.getText();
             vehiculosFiltrados = Usuario.busquedaDeVehiculo(App.getVehiculos(), tipo, recoMinString, recoMaxString, añoMinString, añoMaxString, precMinString, precMaxString);
+            
             if (!vehiculosFiltrados.isEmpty()) {
-                Alert a = new Alert(Alert.AlertType.INFORMATION);
-                a.setHeaderText("Búsqueda realizada con éxito");
-                StringBuilder informacion = new StringBuilder();
-                informacion.append("");
-                for(Vehiculo v : vehiculosFiltrados){
-                    v.mostrarDetallesVehiculo();
-                    informacion.append(v.reunirDetallesVehiculo());
-                    informacion.append("\n");
-                }
-                a.setContentText(informacion.toString());
-                a.showAndWait();
-            }
-            else{
+                vehiculosScene();
+            } else {
                 throw new NullPointerException();
             }
         } catch (NullPointerException e) {
             limpiarCampos();
             Alert a = new Alert(Alert.AlertType.WARNING, "Lo sentimos ningún vehículo coincide con sus criterios de búsqueda.");
-            a.show();
+            a.show();            
         } catch (NumberFormatException e) {
             limpiarCampos() ;
             Alert b = new Alert(Alert.AlertType.WARNING, "Valores ingresados incorrectos. Intente de nuevo");
             b.show();
+        } catch (IOException e) {
         }
+    
     }
     
     private void limpiarCampos() {
@@ -107,12 +101,23 @@ public class BuscarVehiculoController implements Initializable {
     }
     
     private int opcionesChk(){
-        if(chkAuto.isSelected() && chkCamioneta.isSelected() && chkMotocicleta.isSelected())
+         System.out.println("Seleccionado Auto: " + chkAuto.isSelected());
+    System.out.println("Seleccionado Camioneta: " + chkCamioneta.isSelected());
+    System.out.println("Seleccionado Motocicleta: " + chkMotocicleta.isSelected());
+    
+
+        if((chkAuto.isSelected() && chkCamioneta.isSelected() && chkMotocicleta.isSelected()) || (!chkAuto.isSelected())&&(!chkCamioneta.isSelected())&&(!chkMotocicleta.isSelected()) )
+            return 7;
+        else if(chkCamioneta.isSelected()&&chkAuto.isSelected())
+            return 5;
+        else if(chkAuto.isSelected()&&chkMotocicleta.isSelected())
             return 4;
-        else if(chkCamioneta.isSelected())
+        else if(chkMotocicleta.isSelected()&&chkCamioneta.isSelected())
             return 3;
         else if(chkAuto.isSelected())
             return 2;
+        else if(chkCamioneta.isSelected())
+            return 6;
         else
             return 1;
     }
@@ -120,5 +125,15 @@ public class BuscarVehiculoController implements Initializable {
     @FXML
     private void regresar(MouseEvent event) throws IOException {
        App.setRoot("Menu");
+    }
+    
+    private void vehiculosScene() throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("/ec/edu/espol/sistemaventavehiculo/VehiculosMuestras.fxml"));
+        Parent root = loader.load();
+        VehiculosMuestrasController controlador = loader.getController();
+        controlador.setVehiculos(vehiculosFiltrados);
+        controlador.mostrarVehiculo(0);
+        Scene sc = btnBuscar.getScene(); 
+        sc.setRoot(root);
     }
 }

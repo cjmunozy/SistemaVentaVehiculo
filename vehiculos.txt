@@ -1,3 +1,3 @@
-GMA-0001|Macbor|Rockster Flat 125|Monocilindro de 125 cc|2014|0.0|Negro|Diesel|2800.0|MOTOCICLETA
-GAA-0001|Audi|A3 Sportback|Hibrido|2020|1500.0|Azul|Diesel|30000.0|AUTO|6|Manual
-GCA-0001|Ford|F-150 Raptor|Ecoboost|2023|100.0|Rojo|Diesel|75000.0|CAMIONETA|6|Manual|4x4
+GMA-0001|cjmunoz@espol.edu.ec|Macbor|Rockster Flat 125|Monocilindro de 125 cc|2014|0.0|Negro|Diesel|2800.0|MOTOCICLETA
+GAA-0001|cjmunoz@espol.edu.ec|Audi|A3 Sportback|Hibrido|2020|1500.0|Azul|Diesel|30000.0|AUTO|6|Manual
+GCA-0001|aalfonso@espol.edu.ec|Ford|F-150 Raptor|Ecoboost|2023|100.0|Rojo|Diesel|75000.0|CAMIONETA|6|Manual|4x4

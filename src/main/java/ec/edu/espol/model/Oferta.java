@@ -79,6 +79,19 @@ public class Oferta implements Serializable{
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Oferta{");
+        sb.append("placa=").append(placa);
+        sb.append(", vehiculo=").append(vehiculo);
+        sb.append(", correo=").append(correo);
+        sb.append(", usuario=").append(usuario);
+        sb.append(", precio=").append(precio);
+        sb.append('}');
+        return sb.toString();
+    }
     
     @Override
     public boolean equals(Object o) {

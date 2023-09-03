@@ -83,10 +83,10 @@ public class AutoRegistroController implements Initializable {
         double precioText = Double.parseDouble(precioTextStr);
         int vidriosText = Integer.parseInt(vidriosTextStr);
 
-        Auto nuevoVehiculo = Auto.pedirDatosAuto(App.getVehiculos(), placaText, marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, vidriosText, transmisionText);
+        Auto nuevoVehiculo = Auto.pedirDatosAuto(App.getVehiculos(), placaText, App.getUsuario(), marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, vidriosText, transmisionText);
     if (nuevoVehiculo != null) {
         App.getVehiculos().add(nuevoVehiculo);
-        Vehiculo.guardarArchivoVehiculos("vehiculos.ser", App.getVehiculos());
+        App.getUsuario().agregarVehiculo(nuevoVehiculo);
         limpiarCampos();
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
         a.showAndWait();

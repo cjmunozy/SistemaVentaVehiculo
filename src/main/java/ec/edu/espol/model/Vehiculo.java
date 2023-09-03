@@ -25,6 +25,8 @@ import javafx.scene.control.Alert;
  */
 public class Vehiculo implements Serializable{
     protected String placa;
+    protected Usuario dueño;
+    protected String correo;
     protected String marca;
     protected String modelo;
     protected String tipoMotor;
@@ -37,8 +39,14 @@ public class Vehiculo implements Serializable{
     protected ArrayList<Oferta> listaOfertas;
     private static final long serialVersionUID = 8799656478674716638L;
 
-    public Vehiculo(String placa, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, TipoVehiculo tipoVehiculo) {
+    public Vehiculo(String placa, Usuario dueño, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, TipoVehiculo tipoVehiculo) {
+        this(placa, dueño.getCorreo(), marca, modelo, tipoMotor, año, recorrido, color, tipoCombustible, precio, tipoVehiculo);
+        this.dueño = dueño;
+    }
+
+    public Vehiculo(String placa, String correo, String marca, String modelo, String tipoMotor, int año, double recorrido, String color, String tipoCombustible, double precio, TipoVehiculo tipoVehiculo) {
         this.placa = placa;
+        this.correo = correo;
         this.marca = marca;
         this.modelo = modelo;
         this.tipoMotor = tipoMotor;
@@ -53,6 +61,22 @@ public class Vehiculo implements Serializable{
     
     public String getMarca() {
         return marca;
+    }
+
+    public Usuario getDueño() {
+        return dueño;
+    }
+
+    public void setDueño(Usuario dueño) {
+        this.dueño = dueño;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public String getModelo() {
@@ -97,6 +121,25 @@ public class Vehiculo implements Serializable{
         Vehiculo other = (Vehiculo) o;
         return Objects.equals(this.placa, other.placa);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Vehiculo: ");
+        sb.append("placa=").append(placa);
+        sb.append(", due\u00f1o=").append(dueño);
+        sb.append(", correo=").append(correo);
+        sb.append(", marca=").append(marca);
+        sb.append(", modelo=").append(modelo);
+        sb.append(", tipoMotor=").append(tipoMotor);
+        sb.append(", a\u00f1o=").append(año);
+        sb.append(", recorrido=").append(recorrido);
+        sb.append(", color=").append(color);
+        sb.append(", tipoCombustible=").append(tipoCombustible);
+        sb.append(", precio=").append(precio);
+        sb.append(", tipoVehiculo=").append(tipoVehiculo);
+        return sb.toString();
+    }
     
     public static void guardarArchivoVehiculos(String nomFile, ArrayList<Vehiculo> vehiculos){
         try(ObjectOutputStream ous = new ObjectOutputStream(new FileOutputStream(nomFile))){
@@ -128,12 +171,12 @@ public class Vehiculo implements Serializable{
                 Vehiculo v;
                 String linea = sc.nextLine();
                 String[] tokens = linea.split("\\|");
-                if(tokens[9].equals("AUTO"))
-                    v = new Auto(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]), Double.parseDouble(tokens[5]), tokens[6], tokens[7], Double.parseDouble(tokens[8]), TipoVehiculo.valueOf(tokens[9]), Integer.parseInt(tokens[10]), tokens[11]);
-                else if(tokens[9].equals("CAMIONETA"))
-                    v = new Camioneta(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]), Double.parseDouble(tokens[5]), tokens[6], tokens[7], Double.parseDouble(tokens[8]), TipoVehiculo.valueOf(tokens[9]), Integer.parseInt(tokens[10]), tokens[11], tokens[12]);
+                if(tokens[10].equals("AUTO"))
+                    v = new Auto(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], Integer.parseInt(tokens[5]), Double.parseDouble(tokens[6]), tokens[7], tokens[8], Double.parseDouble(tokens[9]), TipoVehiculo.valueOf(tokens[10]), Integer.parseInt(tokens[11]), tokens[12]);
+                else if(tokens[10].equals("CAMIONETA"))
+                    v = new Camioneta(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], Integer.parseInt(tokens[5]), Double.parseDouble(tokens[6]), tokens[7], tokens[8], Double.parseDouble(tokens[9]), TipoVehiculo.valueOf(tokens[10]), Integer.parseInt(tokens[11]), tokens[12], tokens[13]);
                 else
-                    v = new Vehiculo(tokens[0], tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]), Double.parseDouble(tokens[5]), tokens[6], tokens[7], Double.parseDouble(tokens[8]), TipoVehiculo.valueOf(tokens[9]));
+                    v = new Vehiculo(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], Integer.parseInt(tokens[5]), Double.parseDouble(tokens[6]), tokens[7], tokens[8], Double.parseDouble(tokens[9]), TipoVehiculo.valueOf(tokens[10]));
                 vehiculos.add(v);
             }
         }
@@ -147,7 +190,7 @@ public class Vehiculo implements Serializable{
     public void saveFile(String nomFile, boolean append){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomFile), append)))
         {
-            pw.print(this.placa+"|"+this.marca+"|"+this.modelo+"|"+this.tipoMotor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipoCombustible+"|"+this.precio);
+            pw.print(this.placa+"|"+this.correo+"|"+this.marca+"|"+this.modelo+"|"+this.tipoMotor+"|"+this.año+"|"+this.recorrido+"|"+this.color+"|"+this.tipoCombustible+"|"+this.precio);
             if(this instanceof Camioneta)
                 pw.println("|CAMIONETA|"+((Camioneta) this).getVidrios()+"|"+((Camioneta) this).getTransmision()+"|"+((Camioneta) this).getTraccion());
             else if(this instanceof Auto)
@@ -169,7 +212,7 @@ public class Vehiculo implements Serializable{
         }
     }
     
-    public static Vehiculo pedirDatosVehiculo(ArrayList<Vehiculo> vehiculos, Scanner sc){
+    public static Vehiculo pedirDatosVehiculo(ArrayList<Vehiculo> vehiculos, Usuario usuario, Scanner sc){
         System.out.println("\nPOR FAVOR, COMPLETE LOS DATOS PARA REGISTRAR UN NUEVO VEHICULO \n");
         String placaU = null;
         do{
@@ -194,13 +237,13 @@ public class Vehiculo implements Serializable{
         System.out.println("Ingrese el precio: ");
         double precioU = sc.nextDouble();
         sc.nextLine();
-        return new Vehiculo(placaU, marcaU, modeloU, tipoMotorU, añoU, recorridoU, colorU, tipoCombustibleU, precioU, TipoVehiculo.MOTOCICLETA);
+        return new Vehiculo(placaU, usuario, marcaU, modeloU, tipoMotorU, añoU, recorridoU, colorU, tipoCombustibleU, precioU, TipoVehiculo.MOTOCICLETA);
     }
     
-    public static Vehiculo pedirDatosVehiculo(ArrayList<Vehiculo> vehiculos, String placa, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio){
+    public static Vehiculo pedirDatosVehiculo(ArrayList<Vehiculo> vehiculos, String placa, Usuario dueño, String marca, String modelo, String motor, int año, double recorrido, String color, String combustible, double precio){
         if(!Utilitaria.validarPlaca(vehiculos, placa))
             return null;
-        return new Vehiculo(placa, marca, modelo, motor, año, recorrido, color, combustible, precio, TipoVehiculo.MOTOCICLETA); 
+        return new Vehiculo(placa, dueño, marca, modelo, motor, año, recorrido, color, combustible, precio, TipoVehiculo.MOTOCICLETA); 
     }
 
     public void eliminarVehiculo(ArrayList<Vehiculo> vehiculos) {
@@ -308,23 +351,24 @@ public class Vehiculo implements Serializable{
     public String reunirDetallesVehiculo(){
         StringBuilder sb = new StringBuilder();
         sb.append("Información del vehículo:");
-        sb.append("\nPlaca: " + this.placa);
-        sb.append("\nMarca: " + this.marca);
-        sb.append("\nTipo de Motor: " + this.tipoMotor);
-        sb.append("\nModelo: " + this.modelo);
-        sb.append("\nAño: " + this.año);
-        sb.append("\nTipo de Combustible: " +  this.tipoCombustible);
-        sb.append("\nColor: " + this.color);
-        sb.append("\nRecorrido: " + this.recorrido);
-        sb.append("\nPrecio: " + this.precio);
-        sb.append("\nTipo de Vehículo: " + this.tipoVehiculo);
+        sb.append("\nPlaca: ").append(this.placa);
+        sb.append("\nDueño: ").append(this.dueño.getNombres()).append(" ").append(this.dueño.getApellidos());
+        sb.append("\nMarca: ").append(this.marca);
+        sb.append("\nTipo de Motor: ").append(this.tipoMotor);
+        sb.append("\nModelo: ").append(this.modelo);
+        sb.append("\nAño: ").append(this.año);
+        sb.append("\nTipo de Combustible: ").append(this.tipoCombustible);
+        sb.append("\nColor: ").append(this.color);
+        sb.append("\nRecorrido: ").append(this.recorrido);
+        sb.append("\nPrecio: ").append(this.precio);
+        sb.append("\nTipo de Vehículo: ").append(this.tipoVehiculo);
         if(this instanceof Camioneta){
-            sb.append("\nVidrios: " + ((Auto) this).getVidrios());
-            sb.append("\nTransmisión: " + ((Auto) this).getTransmision());
-            sb.append("\nTracción: " + ((Camioneta) this).getTraccion());
+            sb.append("\nVidrios: ").append(((Auto) this).getVidrios());
+            sb.append("\nTransmisión: ").append(((Auto) this).getTransmision());
+            sb.append("\nTracción: ").append(((Camioneta) this).getTraccion());
         }else if(this instanceof Auto){
-            sb.append("\nVidrios: " + ((Auto) this).getVidrios());
-            sb.append("\nTransmisión: " + ((Auto) this).getTransmision());
+            sb.append("\nVidrios: ").append(((Auto) this).getVidrios());
+            sb.append("\nTransmisión: ").append(((Auto) this).getTransmision());
         }
         return sb.toString();
     }

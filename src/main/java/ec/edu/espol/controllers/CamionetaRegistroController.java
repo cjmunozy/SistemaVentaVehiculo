@@ -86,10 +86,10 @@ public class CamionetaRegistroController implements Initializable {
             double precioText = Double.parseDouble(precioTextStr);
             int vidriosText = Integer.parseInt(vidriosTextStr);
             
-            Camioneta nuevaCamioneta = Camioneta.pedirDatosCamioneta(App.getVehiculos(), placaText, marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, vidriosText, transmisionText, traccionText);
+            Camioneta nuevaCamioneta = Camioneta.pedirDatosCamioneta(App.getVehiculos(), placaText, App.getUsuario(), marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, vidriosText, transmisionText, traccionText);
             if (nuevaCamioneta != null) {
                 App.getVehiculos().add(nuevaCamioneta);
-                Vehiculo.guardarArchivoVehiculos("vehiculos.ser", App.getVehiculos());
+                App.getUsuario().agregarVehiculo(nuevaCamioneta);
         limpiarCampos();
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
         a.showAndWait();

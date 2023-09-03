@@ -71,7 +71,7 @@ public class BuscarVehiculoController implements Initializable {
             String añoMaxString = añoMax.getText();
             String precMinString = precMin.getText();
             String precMaxString = precMax.getText();
-            vehiculosFiltrados = Usuario.busquedaDeVehiculo(App.getVehiculos(), tipo, recoMinString, recoMaxString, añoMinString, añoMaxString, precMinString, precMaxString);
+            vehiculosFiltrados = Usuario.busquedaDeVehiculo(App.getVehiculos(), App.getUsuario(), tipo, recoMinString, recoMaxString, añoMinString, añoMaxString, precMinString, precMaxString);
             
             if (!vehiculosFiltrados.isEmpty()) {
                 vehiculosScene();

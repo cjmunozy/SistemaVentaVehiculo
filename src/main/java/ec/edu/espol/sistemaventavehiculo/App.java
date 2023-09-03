@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
+import javafx.application.Platform;
 
 /**
  * JavaFX App
@@ -54,14 +55,12 @@ public class App extends Application {
         usuarios = Usuario.cargarUsuarios("usuarios.ser");
         vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
         ofertas = Oferta.cargarOfertas("ofertas.ser");
-        if(!ofertas.isEmpty())
-            Utilitaria.relacionar(usuarios, vehiculos, ofertas);
-        for(Usuario u : usuarios)
-            System.out.println(u);
-        for(Vehiculo v : vehiculos)
-            System.out.println(v);
-        for(Oferta o : ofertas)
-            System.out.println(o);
+//        usuarios = Usuario.readFile("usuarios.txt");
+//        vehiculos = Vehiculo.readFile("vehiculos.txt");
+//        ofertas = Oferta.readFile("ofertas.txt");
+//        if(!ofertas.isEmpty())
+//            Utilitaria.relacionar(usuarios, vehiculos, ofertas);
+        imprimirObjetos();
     }
     
     @Override
@@ -70,6 +69,14 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setTitle("Venta Vehículo");
         stage.show();
+        scene.getWindow().setOnCloseRequest(e -> Platform.exit());
+    }
+
+    @Override
+    public void stop() throws Exception {
+        Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
+        Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
+        Oferta.guardarArchivoOfertas("ofertas.ser", ofertas);
     }
 
     public static void setRoot(String fxml) throws IOException {
@@ -121,5 +128,22 @@ public class App extends Application {
 //            }
 //        }while(opcion < 1 || opcion > 3);
         launch();
+    }
+    
+    private void imprimirObjetos(){
+        for(Usuario u : usuarios){
+            System.out.println(u);
+            for(Vehiculo v : u.getVehiculos()){
+                System.out.println(v);
+                for(Oferta o : v.getListaOfertas())
+                   System.out.println(o); 
+            }
+            for(Oferta o : u.getOfertas())
+                System.out.println(o);
+        }
+        for(Vehiculo v : vehiculos)
+            System.out.println(v);
+        for(Oferta o : ofertas)
+            System.out.println(o);
     }
 }

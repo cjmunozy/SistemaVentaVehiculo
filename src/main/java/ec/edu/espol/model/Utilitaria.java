@@ -69,14 +69,14 @@ public class Utilitaria {
             sc.nextLine();
             switch(numEleccion){
                 case 1:
-                    numEleccion = Usuario.registrarVendedor(usuarios, sc);
+                    numEleccion = Usuario.registrarUsuario(usuarios, sc);
                     break;
                 case 2:
                     u = Usuario.comprobarCyC(usuarios, sc);
                     if(u != null)
-//                        Usuario.ingresarNuevoVehiculo(vehiculos, sc);
+                        Usuario.ingresarNuevoVehiculo(vehiculos, u, sc);
                     numEleccion = -1;
-//                    break;
+                    break;
                 case 3:
                     u = Usuario.comprobarCyC(usuarios, sc);
                     if(u != null)
@@ -107,7 +107,7 @@ public class Utilitaria {
             sc.nextLine();
             switch(numEleccion){
                 case 1:
-                    numEleccion = Usuario.registrarComprador(usuarios, sc);
+                    numEleccion = Usuario.registrarUsuario(usuarios, sc);
                     break;
                 case 2:
                     Usuario u = Usuario.comprobarCyC(usuarios, sc);
@@ -159,6 +159,12 @@ public class Utilitaria {
                     if(o.getCorreo().equals(u.getCorreo())){
                         o.setUsuario(u);
                         u.agregarOferta(o);
+                    }
+                }
+                for(Vehiculo v : vehiculos){
+                    if(v.getCorreo().equals(u.getCorreo())){
+                        v.setDueño(u);
+                        u.agregarVehiculo(v);
                     }
                 }
             }

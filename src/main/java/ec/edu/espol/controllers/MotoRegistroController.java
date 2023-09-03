@@ -74,10 +74,10 @@ public class MotoRegistroController implements Initializable {
         int añoInt = Integer.parseInt(añoText);
         double precioDouble = Double.parseDouble(precioText);
 
-            Vehiculo nuevaMoto = Vehiculo.pedirDatosVehiculo(App.getVehiculos(), placaText, marcaText, modeloText, motorText, añoInt, recorridoDouble, colorText, combustibleText, precioDouble);
+            Vehiculo nuevaMoto = Vehiculo.pedirDatosVehiculo(App.getVehiculos(), placaText, App.getUsuario(), marcaText, modeloText, motorText, añoInt, recorridoDouble, colorText, combustibleText, precioDouble);
             if (nuevaMoto != null) {
                 App.getVehiculos().add(nuevaMoto);
-                Vehiculo.guardarArchivoVehiculos("vehiculos.ser", App.getVehiculos());
+                App.getUsuario().agregarVehiculo(nuevaMoto);
         limpiarCampos();
         Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
         a.showAndWait();

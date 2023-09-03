@@ -33,6 +33,7 @@ public class Usuario implements Serializable{
     private String correo;
     private String clave;
     private ArrayList<Oferta> ofertas;
+    private ArrayList<Vehiculo> vehiculos;
     private static final long serialVersionUID = 8799656478674716638L;
     
     public Usuario(String nombres, String apellidos, String organizacion, String correo, String clave) {
@@ -41,8 +42,9 @@ public class Usuario implements Serializable{
         this.organizacion = organizacion;
         this.correo = correo;
         this.clave = clave;
+        this.ofertas = new ArrayList<>();
+        this.vehiculos = new ArrayList<>();
     }
-
     
     public String getNombres() {
         return nombres;
@@ -90,6 +92,27 @@ public class Usuario implements Serializable{
 
     public void setOfertas(ArrayList<Oferta> ofertas) {
         this.ofertas = ofertas;
+    }
+
+    public ArrayList<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Usuario{");
+        sb.append("nombres=").append(nombres);
+        sb.append(", apellidos=").append(apellidos);
+        sb.append(", organizacion=").append(organizacion);
+        sb.append(", correo=").append(correo);
+        sb.append(", clave=").append(clave);
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override
@@ -150,12 +173,13 @@ public class Usuario implements Serializable{
     public void saveFile(String nomFile,boolean append){
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomFile), append)))
         {
-           pw.println(this.nombres+"|"+this.apellidos+"|"+this.organizacion+"|"+this.correo+"|"+this.clave+"|");
+           pw.println(this.nombres+"|"+this.apellidos+"|"+this.organizacion+"|"+this.correo+"|"+this.clave);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
+    
     public static void saveFile(ArrayList<Usuario> usuarios, String nomFile){
         for (int i = 0; i < usuarios.size(); i++){
             if(i == 0)
@@ -166,7 +190,7 @@ public class Usuario implements Serializable{
     }
     
     
-    public static int registrarComprador(ArrayList<Usuario> usuarios, Scanner sc){
+    public static int registrarUsuario(ArrayList<Usuario> usuarios, Scanner sc){
         boolean validacion = false;
         System.out.println("\nPOR FAVOR, COMPLETE LOS SIGUIENTES DATOS PARA REGISTRARSE \n");
         System.out.println("Ingrese sus nombres: ");
@@ -269,7 +293,7 @@ public class Usuario implements Serializable{
     return vehiculosPorBusqueda;
     }
     
-    public static ArrayList<Vehiculo> busquedaDeVehiculo(ArrayList<Vehiculo> vehiculos, int tipo, String recoMinString, String recoMaxString, String añoMinString, String añoMaxString, String precMinString, String precMaxString){
+    public static ArrayList<Vehiculo> busquedaDeVehiculo(ArrayList<Vehiculo> vehiculos, Usuario usuario, int tipo, String recoMinString, String recoMaxString, String añoMinString, String añoMaxString, String precMinString, String precMaxString){
         ArrayList<Vehiculo> vehiculosPorBusqueda = new ArrayList<>();
         double recoMin = 0;
         if (!recoMinString.equals("")) {
@@ -302,74 +326,44 @@ public class Usuario implements Serializable{
         }
         
         String tipoVehiculo = "";
-//        for(Vehiculo v : vehiculos){
-//            switch(tipo){
-//                case 1:
-//                    tipoVehiculo = "MOTOCICLETA";
-//                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
-//                        vehiculosPorBusqueda.add(v);
-//                    break;
-//                case 2:
-//                    tipoVehiculo = "AUTO";
-//                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
-//                        vehiculosPorBusqueda.add(v);
-//                    break;
-//                case 3:
-//                    tipoVehiculo = "CAMIONETA";
-//                    if(v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
-//                        vehiculosPorBusqueda.add(v);
-//                    break;
-//                default:
-//                    if(encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
-//                        vehiculosPorBusqueda.add(v);
-//            }
-//            System.out.println("Vehículo tipo: " + v.tipoVehiculo );
-////        }
-//    }
-//    
-    for (Vehiculo v : vehiculos) {
-        switch (tipo) {
-            case 1: 
-                tipoVehiculo = "MOTOCICLETA";
-                if (v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
-                    vehiculosPorBusqueda.add(v);
+        for (Vehiculo v : vehiculos) {
+            if(!v.getDueño().equals(usuario)){
+                switch (tipo) {
+                    case 1: 
+                        tipoVehiculo = "MOTOCICLETA";
+                        if (v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                            vehiculosPorBusqueda.add(v);
+                        break;
+                    case 2: 
+                        tipoVehiculo = "AUTO";
+                        if (v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                            vehiculosPorBusqueda.add(v);
+                        break;
+                    case 6: 
+                        tipoVehiculo = "CAMIONETA";
+                        if (v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                            vehiculosPorBusqueda.add(v);
+                        break;
+                    case 7: 
+                        if (encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                            vehiculosPorBusqueda.add(v);
+                        break;
+                    case 5: 
+                        if ((v.tipoVehiculo.equals(TipoVehiculo.AUTO) || v.tipoVehiculo.equals(TipoVehiculo.CAMIONETA)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                            vehiculosPorBusqueda.add(v);
+                        break;
+                    case 4:
+                        if ((v.tipoVehiculo.equals(TipoVehiculo.AUTO) || v.tipoVehiculo.equals(TipoVehiculo.MOTOCICLETA)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                            vehiculosPorBusqueda.add(v);
+                        break;
+                    case 3: 
+                        if ((v.tipoVehiculo.equals(TipoVehiculo.CAMIONETA) || v.tipoVehiculo.equals(TipoVehiculo.MOTOCICLETA)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax))
+                            vehiculosPorBusqueda.add(v);
+                        break;
                 }
-                break;
-            case 2: 
-                tipoVehiculo = "AUTO";
-                if (v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
-                    vehiculosPorBusqueda.add(v);
-                }
-                break;
-            case 6: 
-                tipoVehiculo = "CAMIONETA";
-                if (v.tipoVehiculo.equals(TipoVehiculo.valueOf(tipoVehiculo)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
-                    vehiculosPorBusqueda.add(v);
-                }
-                break;
-            case 7: 
-                if (encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
-                    vehiculosPorBusqueda.add(v);
-                }
-                break;
-            case 5: 
-                if ((v.tipoVehiculo.equals(TipoVehiculo.AUTO) || v.tipoVehiculo.equals(TipoVehiculo.CAMIONETA)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
-                    vehiculosPorBusqueda.add(v);
-                }
-                break;
-            case 4:
-                if ((v.tipoVehiculo.equals(TipoVehiculo.AUTO) || v.tipoVehiculo.equals(TipoVehiculo.MOTOCICLETA)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
-                    vehiculosPorBusqueda.add(v);
-                }
-                break;
-            case 3: 
-                if ((v.tipoVehiculo.equals(TipoVehiculo.CAMIONETA) || v.tipoVehiculo.equals(TipoVehiculo.MOTOCICLETA)) && encontrarVehiculos(v, recoMin, recoMax, añoMin, añoMax, precMin, precMax)) {
-                    vehiculosPorBusqueda.add(v);
-                }
-                break;
+            }
         }
-    }
-        return vehiculosPorBusqueda;
+    return vehiculosPorBusqueda;
     }
     
 public static boolean encontrarVehiculos(Vehiculo vehiculo,double recoMin,double recoMax,int añoMin,int añoMax,double precMin,double precMax){
@@ -483,18 +477,7 @@ public static boolean encontrarVehiculos(Vehiculo vehiculo,double recoMin,double
             return uNuevo;
     
     }
-    public static Usuario registrarVendedor(ArrayList<Usuario> usuarios, String nombre, String apellidos, String organizacion, String correo, String contra) throws IOException{
-        if(Utilitaria.validarCorreo(usuarios, correo)==false){
-            Alert a = new Alert(Alert.AlertType.ERROR,"El usuario ingresado ya existe");
-            a.show();
-            return null;
-        }
-        Usuario uNuevo = new Usuario(nombre, apellidos, organizacion, correo, Utilitaria.claveHash(contra));
-        usuarios.add(uNuevo);
-        Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
-        return uNuevo;
- 
-    }
+    
     public static Usuario comprobarCyC(ArrayList<Usuario> usuarios, String correoE, String contraseñaE) {
     for (Usuario u: usuarios){
             if (correoE.equals(u.correo) && Utilitaria.claveHash(contraseñaE).equals(u.clave)){
@@ -504,9 +487,12 @@ public static boolean encontrarVehiculos(Vehiculo vehiculo,double recoMin,double
         return null;
     }
 
-
     public void agregarOferta(Oferta o){
         this.ofertas.add(o);
+    }
+    
+    public void agregarVehiculo(Vehiculo v){
+        this.vehiculos.add(v);
     }
     
     //Métodos de Vendedor
@@ -532,6 +518,37 @@ public static boolean encontrarVehiculos(Vehiculo vehiculo,double recoMin,double
         Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
         System.out.println("Vendedor registrado con éxito");
         return -1;
+    }
+    
+    public static void ingresarNuevoVehiculo(ArrayList<Vehiculo> vehiculos, Usuario usuario, Scanner sc){
+        int numT;
+        Vehiculo v;
+        do{
+            System.out.println("\n--- TIPO DE VEHICULOS DISPONIBLES PARA REGISTRAR ---");
+            System.out.println("1. Motocicleta");
+            System.out.println("2. Auto");
+            System.out.println("3. Camioneta");
+            System.out.println("Ingrese el número del tipo de vehículo que desea registrar: ");
+            numT = sc.nextInt();
+            sc.nextLine();
+            switch(numT){
+                case 1:
+                    v = Vehiculo.pedirDatosVehiculo(vehiculos, usuario, sc);
+                    vehiculos.add(v);
+                    v.saveFile("vehiculos.txt", true);
+                    break;
+                case 2:
+                    v = Auto.pedirDatosAuto(vehiculos, usuario, sc);
+                    vehiculos.add(v);
+                    v.saveFile("vehiculos.txt", true);
+                    break;
+                case 3:
+                    v = Camioneta.pedirDatosCamioneta(vehiculos, usuario, sc);
+                    vehiculos.add(v);
+                    v.saveFile("vehiculos.txt", true);
+            }
+        }while(numT < 1 || numT > 3);
+        System.out.println("Vehículo registrado con éxito");
     }
 //    
 //    public static void ingresarNuevoVehiculo(ArrayList<Vehiculo> vehiculos, Scanner sc){

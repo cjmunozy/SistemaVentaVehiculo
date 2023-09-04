@@ -59,30 +59,30 @@ public class Vehiculo implements Serializable{
         this.listaOfertas = new ArrayList<>();
     }
     
-    public String getMarca() {
-        return marca;
+    public String getPlaca() {
+        return placa;
     }
-
+    
     public Usuario getDueño() {
         return dueño;
     }
-
-    public void setDueño(Usuario dueño) {
-        this.dueño = dueño;
-    }
-
+    
     public String getCorreo() {
         return correo;
     }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    
+    public String getMarca() {
+        return marca;
     }
 
     public String getModelo() {
         return modelo;
     }
 
+    public String getTipoMotor() {
+        return tipoMotor;
+    }
+    
     public int getAño() {
         return año;
     }
@@ -91,22 +91,34 @@ public class Vehiculo implements Serializable{
         return recorrido;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public String getTipoCombustible() {
+        return tipoCombustible;
+    }
+
     public double getPrecio() {
         return precio;
     }
-    
+        
     public ArrayList<Oferta> getListaOfertas() {
         return listaOfertas;
     }
 
-    public String getPlaca() {
-        return placa;
+    public void setDueño(Usuario dueño) {
+        this.dueño = dueño;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public TipoVehiculo getTipoVehiculo() {
         return tipoVehiculo;
     }
-
+    
     @Override
     public boolean equals(Object o) {
         if (o == null) {

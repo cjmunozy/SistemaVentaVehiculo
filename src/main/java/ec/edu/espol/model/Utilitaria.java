@@ -164,6 +164,15 @@ public class Utilitaria {
     public static boolean enRango(int valor, int minimo, int maximo){
         return valor >= minimo && valor <= maximo;
     }
+    
+    public Vehiculo obtenerVehiculo(ArrayList<Vehiculo> vehiculos, String placa){
+        Vehiculo vehiculo = null;
+        for(Vehiculo v : vehiculos){
+            if(v.getPlaca().equals(placa))
+                vehiculo = v;
+        }
+        return vehiculo;
+    }
 
     public static void relacionar(ArrayList<Usuario> usuarios, ArrayList<Vehiculo> vehiculos, ArrayList<Oferta> ofertas){
         for(Usuario u : usuarios){

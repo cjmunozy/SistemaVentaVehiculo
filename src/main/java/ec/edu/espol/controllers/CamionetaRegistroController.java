@@ -5,6 +5,7 @@
 package ec.edu.espol.controllers;
 
 import ec.edu.espol.model.Camioneta;
+import ec.edu.espol.model.Imagen;
 import ec.edu.espol.model.TipoVehiculo;
 import ec.edu.espol.model.Utilitaria;
 import ec.edu.espol.model.Vehiculo;
@@ -54,6 +55,9 @@ public class CamionetaRegistroController implements Initializable {
     private TextField vidrios;
     @FXML
     private TextField transmision;
+    
+    private boolean imagenAgregada = false;
+    private Imagen imagen;
 
     /**
      * Initializes the controller class.
@@ -85,21 +89,27 @@ public class CamionetaRegistroController implements Initializable {
                 transmisionText.isEmpty() || vidriosTextStr.isEmpty() || traccionText.isEmpty()) {
                 throw new IllegalArgumentException("Por favor, complete todos los campos.");
             }
-
-            double recorridoText = Double.parseDouble(recorridoTextStr);
-            int añoText = Integer.parseInt(añoTextStr);
-            double precioText = Double.parseDouble(precioTextStr);
-            int vidriosText = Integer.parseInt(vidriosTextStr);
+            if(imagenAgregada){
+                double recorridoText = Double.parseDouble(recorridoTextStr);
+                int añoText = Integer.parseInt(añoTextStr);
+                double precioText = Double.parseDouble(precioTextStr);
+                int vidriosText = Integer.parseInt(vidriosTextStr);
             
-            Camioneta nuevaCamioneta = Camioneta.pedirDatosCamioneta(App.getVehiculos(), placaText, App.getUsuario(), marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, vidriosText, transmisionText, traccionText);
-            if (nuevaCamioneta != null) {
-                App.getVehiculos().add(nuevaCamioneta);
-                App.getUsuario().agregarVehiculo(nuevaCamioneta);
-        limpiarCampos();
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
-        a.showAndWait();
-    }
-    } catch (NullPointerException e) {
+                Camioneta nuevaCamioneta = Camioneta.pedirDatosCamioneta(App.getVehiculos(), placaText, App.getUsuario(), marcaText, modeloText, motorText, añoText, recorridoText, colorText, combustibleText, precioText, vidriosText, transmisionText, traccionText);
+                if (nuevaCamioneta != null) {
+                    App.getVehiculos().add(nuevaCamioneta);
+                    App.getUsuario().agregarVehiculo(nuevaCamioneta);
+                    imagen.setVehiculo(nuevaCamioneta);
+                    App.getImagenes().add(imagen);
+                    limpiarCampos();
+                    Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
+                    a.showAndWait();
+                }
+            } else {
+                Alert a = new Alert(Alert.AlertType.WARNING, "Seleccione una imagen del vehículo");
+                a.show();
+            }
+        } catch (NullPointerException e) {
         limpiarCampos();
         Alert a = new Alert(Alert.AlertType.WARNING, "El vehículo ya existe");
         a.show();        } catch (NumberFormatException e) {
@@ -139,17 +149,17 @@ public class CamionetaRegistroController implements Initializable {
                 System.out.println("hola"+placa1);
                 String rutaImagenSeleccionada = selectedFile.getAbsolutePath();
                 String carpetaDestino = "src/main/resources/Vehiculos_Imagenes"; 
-                String nuevoNombreArchivo = placa1 + ".jpg"; 
+                String nombre = selectedFile.getName();
+                String nuevoNombreArchivo = placa1 + nombre.substring(nombre.lastIndexOf(".") + 1);
                 String rutaDestino = carpetaDestino + File.separator + nuevoNombreArchivo;
                 File destinoFile = new File(rutaDestino);
                 Files.copy(selectedFile.toPath(), destinoFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                Utilitaria.relacionarImagen(placa1, rutaDestino);
+                imagen = new Imagen(placa1, "/Vehiculos_Imagenes/" + nuevoNombreArchivo);
+                imagenAgregada = true;
             } catch (IOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Error al adjuntar la imagen");
                 alert.show();
             }
            }
     }
-    }
-
-
+}

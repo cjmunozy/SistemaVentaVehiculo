@@ -4,6 +4,7 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.model.Imagen;
 import ec.edu.espol.model.TipoVehiculo;
 import ec.edu.espol.model.Utilitaria;
 import ec.edu.espol.model.Vehiculo;
@@ -47,6 +48,9 @@ public class MotoRegistroController implements Initializable {
     private TextField precio;
     @FXML
     private TextField combustible;
+    
+    private boolean imagenAgregada = false;
+    private Imagen imagen;
 
     /**
      * Initializes the controller class.
@@ -74,19 +78,25 @@ public class MotoRegistroController implements Initializable {
             modeloText.isEmpty() || precioText.isEmpty() || combustibleText.isEmpty()) {
             throw new IllegalArgumentException("Por favor, complete todos los campos.");
         }
-
-        double recorridoDouble = Double.parseDouble(recorridoText);
-        int añoInt = Integer.parseInt(añoText);
-        double precioDouble = Double.parseDouble(precioText);
+        if(imagenAgregada){
+            double recorridoDouble = Double.parseDouble(recorridoText);
+            int añoInt = Integer.parseInt(añoText);
+            double precioDouble = Double.parseDouble(precioText);
 
             Vehiculo nuevaMoto = Vehiculo.pedirDatosVehiculo(App.getVehiculos(), placaText, App.getUsuario(), marcaText, modeloText, motorText, añoInt, recorridoDouble, colorText, combustibleText, precioDouble);
             if (nuevaMoto != null) {
                 App.getVehiculos().add(nuevaMoto);
                 App.getUsuario().agregarVehiculo(nuevaMoto);
-        limpiarCampos();
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
-        a.showAndWait();
-    }
+                imagen.setVehiculo(nuevaMoto);
+                App.getImagenes().add(imagen);
+                limpiarCampos();
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Vehículo registrado con éxito");
+                a.showAndWait();
+            }
+        } else {
+            Alert a = new Alert(Alert.AlertType.WARNING, "Seleccione una imagen del vehículo");
+            a.show();
+        }
     } catch (NullPointerException e) {
         limpiarCampos();
         Alert a = new Alert(Alert.AlertType.WARNING, "El vehículo ya existe");
@@ -125,12 +135,14 @@ public class MotoRegistroController implements Initializable {
                 String placa1 = placa.getText();
                 System.out.println("hola"+placa1);
                 String rutaImagenSeleccionada = selectedFile.getAbsolutePath();
-                String carpetaDestino = "src/main/resources/Vehiculos_Imagenes"; 
-                String nuevoNombreArchivo = placa1 + ".jpg"; 
+                String carpetaDestino = "src/main/resources/Vehiculos_Imagenes";
+                String nombre = selectedFile.getName();
+                String nuevoNombreArchivo = placa1 + nombre.substring(nombre.lastIndexOf(".") + 1); 
                 String rutaDestino = carpetaDestino + File.separator + nuevoNombreArchivo;
                 File destinoFile = new File(rutaDestino);
                 Files.copy(selectedFile.toPath(), destinoFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                Utilitaria.relacionarImagen(placa1, rutaDestino);
+                imagen = new Imagen(placa1, "/Vehiculos_Imagenes/" + nuevoNombreArchivo);
+                imagenAgregada = true;
             } catch (IOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Error al adjuntar la imagen");
                 alert.show();

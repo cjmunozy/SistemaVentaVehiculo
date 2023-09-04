@@ -1,9 +1,11 @@
 package ec.edu.espol.sistemaventavehiculo;
 
+import ec.edu.espol.model.Imagen;
 import ec.edu.espol.model.Oferta;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Utilitaria;
 import ec.edu.espol.model.Vehiculo;
+import java.io.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +26,7 @@ public class App extends Application {
     private static ArrayList<Usuario> usuarios;
     private static ArrayList<Vehiculo> vehiculos;
     private static ArrayList<Oferta> ofertas;
+    private static ArrayList<Imagen> imagenes;
     private static Usuario usuario;
 
     public static Scene getScene() {
@@ -42,6 +45,10 @@ public class App extends Application {
         return ofertas;
     }
 
+    public static ArrayList<Imagen> getImagenes() {
+        return imagenes;
+    }
+
     public static Usuario getUsuario() {
         return usuario;
     }
@@ -55,11 +62,12 @@ public class App extends Application {
         usuarios = Usuario.cargarUsuarios("usuarios.ser");
         vehiculos = Vehiculo.cargarVehiculos("vehiculos.ser");
         ofertas = Oferta.cargarOfertas("ofertas.ser");
+        imagenes = Imagen.cargarImagenes("imagenes.ser");
 //        usuarios = Usuario.readFile("usuarios.txt");
 //        vehiculos = Vehiculo.readFile("vehiculos.txt");
 //        ofertas = Oferta.readFile("ofertas.txt");
-        if(!ofertas.isEmpty())
-            Utilitaria.relacionar(usuarios, vehiculos, ofertas);
+//        if(!ofertas.isEmpty())
+//            Utilitaria.relacionar(usuarios, vehiculos, ofertas);
         imprimirObjetos();
     }
     
@@ -77,6 +85,7 @@ public class App extends Application {
         Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
         Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
         Oferta.guardarArchivoOfertas("ofertas.ser", ofertas);
+        Imagen.guardarArchivoImagenes("imagenes.ser", imagenes);
 //        Usuario.saveFile(usuarios, "usuarios.txt");
 //        Vehiculo.saveFile(vehiculos, "vehiculos.txt");
     }
@@ -145,6 +154,8 @@ public class App extends Application {
         }
         for(Vehiculo v : vehiculos)
             System.out.println(v);
+        for(Imagen i : imagenes)
+            System.out.println(i);
         for(Oferta o : ofertas)
             System.out.println(o);
     }

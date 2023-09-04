@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,6 +23,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -52,9 +55,17 @@ public class BuscarVehiculoController implements Initializable {
     private TextField precMax;
     
     private static ArrayList<Vehiculo> vehiculosFiltrados;
+    private static Stage primaryStage;
+    private static Stage secondaryStage;
     /**
      * Initializes the controller class.
      */
+    
+    public static ArrayList<Vehiculo> getVehiculosFiltrados() {
+        return vehiculosFiltrados;
+        // TODO
+    }    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -74,7 +85,7 @@ public class BuscarVehiculoController implements Initializable {
             vehiculosFiltrados = Usuario.busquedaDeVehiculo(App.getVehiculos(), App.getUsuario(), tipo, recoMinString, recoMaxString, añoMinString, añoMaxString, precMinString, precMaxString);
             
             if (!vehiculosFiltrados.isEmpty()) {
-                vehiculosScene();
+                vehiculosScene(event);
             } else {
                 throw new NullPointerException();
             }
@@ -127,13 +138,19 @@ public class BuscarVehiculoController implements Initializable {
        App.setRoot("Menu");
     }
     
-    private void vehiculosScene() throws IOException {
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("/ec/edu/espol/sistemaventavehiculo/VehiculosMuestras.fxml"));
-        Parent root = loader.load();
-        VehiculosMuestrasController controlador = loader.getController();
-        controlador.setVehiculos(vehiculosFiltrados);
-        controlador.mostrarVehiculo(0);
-        Scene sc = btnBuscar.getScene(); 
-        sc.setRoot(root);
+    private void vehiculosScene(MouseEvent event) throws IOException {
+        primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        BorderPane newView = FXMLLoader.load(getClass().getResource("/ec/edu/espol/sistemaventavehiculo/VehiculosMuestras.fxml"));
+        Scene newScene = new Scene(newView);
+        secondaryStage = new Stage();
+        secondaryStage.setScene(newScene);
+        secondaryStage.setMaximized(true);
+        secondaryStage.setOnCloseRequest(e -> regresar());
+        primaryStage.hide();
+        secondaryStage.show();
+    }
+    
+    public void regresar(){
+        primaryStage.show();
     }
 }

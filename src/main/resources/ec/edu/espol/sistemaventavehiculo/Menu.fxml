@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.TilePane?>
@@ -12,32 +11,30 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.MenuController">
-   <left>
-      <AnchorPane prefHeight="524.0" prefWidth="190.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="400.0" fitWidth="216.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../img/fondo.jpg" />
-               </image>
-            </ImageView>
-         </children></AnchorPane>
-   </left>
    <center>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox prefHeight="400.0" prefWidth="498.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="120.0">
                <children>
+                  <ImageView fitHeight="32.0" fitWidth="39.0" onMouseClicked="#cerrarSesion" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../img/logout.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </ImageView>
                   <Label text="Elija una opción" textAlignment="CENTER" textFill="#059bff">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="120.0" />
+                        <Insets left="80.0" />
                      </HBox.margin>
                   </Label>
                </children>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets left="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
             <TilePane hgap="80.0" prefHeight="200.0" prefWidth="200.0">
@@ -59,14 +56,20 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
             </TilePane>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="80.0">
                <children>
-                  <Label contentDisplay="CENTER" text="Busqueda de vehículo" />
+                  <Label contentDisplay="CENTER" text="Ofertar por un vehículo          " />
                   <Label text="Registrar nuevo vehículo" />
                </children>
                <VBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="130.0" />
                </VBox.margin>
             </HBox>
             <TilePane hgap="85.0" prefHeight="200.0" prefWidth="200.0">
@@ -76,24 +79,27 @@
                         <Image url="@../../../../img/aceptar%20oferta.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="imgViewSesion" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#cerrarSesion" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgViewSesion" fitHeight="141.0" fitWidth="136.0" onMouseClicked="#perfilUsuario" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../img/cerrar%20sesion.png" />
+                        <Image url="@../../../../img/settings.png" />
                      </image>
                   </ImageView>
                </children>
                <VBox.margin>
-                  <Insets />
+                  <Insets left="100.0" />
                </VBox.margin>
             </TilePane>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="130.0">
                <children>
                   <Label text="Aceptar oferta" />
-                  <Label text="Cerrar sesión" />
+                  <Label text="Perfil de usuario" />
                </children>
                <padding>
                   <Insets left="40.0" />
                </padding>
+               <VBox.margin>
+                  <Insets left="110.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>

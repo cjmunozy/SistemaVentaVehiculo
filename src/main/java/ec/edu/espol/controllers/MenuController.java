@@ -59,5 +59,10 @@ public class MenuController implements Initializable {
         App.setUsuario(null);
         App.setRoot("PantallaInicio");
     }
+
+    @FXML
+    private void perfilUsuario(MouseEvent event) throws IOException {
+        App.setRoot("PerfilUsuario");
+    }
     
 }

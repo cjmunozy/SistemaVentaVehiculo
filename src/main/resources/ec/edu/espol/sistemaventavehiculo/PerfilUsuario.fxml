@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.PerfilUsuarioController">
+   <top>
+      <AnchorPane prefHeight="68.0" prefWidth="600.0" style="-fx-background-color: #059bff;" BorderPane.alignment="CENTER" />
+   </top>
+   <bottom>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="99.199951171875" minWidth="10.0" prefWidth="65.5999755859375" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="231.20000000000002" minWidth="10.0" prefWidth="230.39998779296874" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.60003662109375" minWidth="0.0" prefWidth="0.8000122070312727" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.8000366210937" minWidth="10.0" prefWidth="256.8000366210937" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.199951171875" minWidth="10.0" prefWidth="47.5999755859375" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="105.59998168945313" minHeight="0.0" prefHeight="35.40001220703125" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="278.2000366210938" minHeight="10.0" prefHeight="247.80001220703127" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="158.4000152587891" minHeight="6.799963378906227" prefHeight="37.19998779296873" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="95.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+               <image>
+                  <Image url="@../../../../img/user.png" />
+               </image>
+            </ImageView>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="154.0" style="-fx-background-color: #059bff;" text="Nombres del Usuario" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="104.0" prefHeight="27.0" prefWidth="154.0" style="-fx-background-color: #059bff;" text="Organización" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="13.0" layoutY="152.0" prefHeight="27.0" prefWidth="153.0" style="-fx-background-color: #059bff;" text="Correo electrónico" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="13.0" layoutY="59.0" prefHeight="27.0" prefWidth="154.0" style="-fx-background-color: #059bff;" text="Apellidos del Usuario" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label layoutX="150.0" layoutY="197.0" text="Deseas cambiar tu contraseña?" />
+               </children>
+            </AnchorPane>
+            <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ImageView fitHeight="34.0" fitWidth="35.0" onMouseClicked="#regresar" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../../../img/regresar.jpg" />
+               </image>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" />
+               </GridPane.margin>
+            </ImageView>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <children>
+                  <Label fx:id="nombre" alignment="CENTER" layoutX="-31.0" layoutY="14.0" prefHeight="30.0" prefWidth="240.0" style="-fx-background-color: white; -fx-border-color: #059bff;" textFill="#3b1a1a" textOverrun="CLIP">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="organizacion" alignment="CENTER" layoutX="-30.0" layoutY="104.0" prefHeight="30.0" prefWidth="237.0" style="-fx-border-color: #059bff;" textOverrun="CLIP">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="correo" alignment="CENTER" layoutX="-31.0" layoutY="152.0" prefHeight="30.0" prefWidth="239.0" style="-fx-border-color: #059bff;" textOverrun="CLIP">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="apellido" alignment="CENTER" layoutX="-31.0" layoutY="59.0" prefHeight="30.0" prefWidth="238.0" style="-fx-background-color: white; -fx-border-color: #059bff;" textOverrun="CLIP">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Label>
+                  <Button layoutX="-75.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#cambiarContraseña" prefHeight="26.0" prefWidth="141.0" text="Cambiar contraseña" />
+               </children>
+            </AnchorPane>
+            <Label text="Datos Personales" textFill="#1c67b7" underline="true" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </bottom>
+</BorderPane>

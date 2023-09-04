@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ListIterator;
@@ -189,7 +190,23 @@ public class Usuario implements Serializable{
         }
     }
     
-    
+    public static boolean cambiarContraseña(String contraseñaActual, String nuevaContraseña) {
+    if (App.getUsuario() != null && Utilitaria.claveHash(contraseñaActual).equals(App.getUsuario().getClave())) {
+        String nuevoHash = Utilitaria.claveHash(nuevaContraseña);
+        System.out.println(nuevoHash);
+        App.getUsuario().setClave(nuevoHash);
+        System.out.println(App.getUsuario().getClave());
+        return true;
+    }
+
+    return false;
+}
+
+
+
+
+
+
     public static int registrarUsuario(ArrayList<Usuario> usuarios, Scanner sc){
         boolean validacion = false;
         System.out.println("\nPOR FAVOR, COMPLETE LOS SIGUIENTES DATOS PARA REGISTRARSE \n");

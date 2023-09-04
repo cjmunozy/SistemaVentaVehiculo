@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,10 +25,6 @@ import javafx.scene.input.MouseEvent;
  */
 public class VehiculosMuestrasController implements Initializable {
 
-    @FXML
-    private TextArea txtArea;
-    @FXML
-    private ImageView imgv;
     
     private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
     
@@ -36,6 +33,10 @@ public class VehiculosMuestrasController implements Initializable {
     private Button btnAnterior;
     @FXML
     private Button btnSiguiente;
+    @FXML
+    private TableView<String> informacion;
+    @FXML
+    private Button btnOfertar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,11 +75,11 @@ public class VehiculosMuestrasController implements Initializable {
     public void mostrarVehiculo(int i) {
         if (!vehiculos.isEmpty() && i >= 0 && i < vehiculos.size()) {
             Vehiculo v = vehiculos.get(i);
-            StringBuilder informacion = new StringBuilder();
-            informacion.append(v.reunirDetallesVehiculo());
-            informacion.append("\n");
+            StringBuilder info = new StringBuilder();
+            info.append(v.reunirDetallesVehiculo());
+            info.append("\n");
 
-            txtArea.setText(informacion.toString());
+            informacion.getItems().addAll(info.toString());
             System.out.println("Mostrando vehículo en índice: " + i);
         }
         btnAnterior.setVisible(indice > 0);

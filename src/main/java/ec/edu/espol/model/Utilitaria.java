@@ -9,6 +9,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -16,8 +18,18 @@ import java.util.Scanner;
  * @author crisj
  */
 public class Utilitaria {
+    private static Map<String, String> imageMap = new HashMap<>();
     
     private Utilitaria(){
+    }
+    
+    
+    public static void relacionarImagen(String placa, String rutaImagen) {
+        imageMap.put(placa, rutaImagen);
+    }
+
+    public static String obtenerRutaImagen(String placa) {
+        return imageMap.get(placa);
     }
     
     public static byte[] getSHA(String input) throws NoSuchAlgorithmException{

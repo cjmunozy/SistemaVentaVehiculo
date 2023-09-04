@@ -58,8 +58,8 @@ public class App extends Application {
 //        usuarios = Usuario.readFile("usuarios.txt");
 //        vehiculos = Vehiculo.readFile("vehiculos.txt");
 //        ofertas = Oferta.readFile("ofertas.txt");
-//        if(!ofertas.isEmpty())
-//            Utilitaria.relacionar(usuarios, vehiculos, ofertas);
+        if(!ofertas.isEmpty())
+            Utilitaria.relacionar(usuarios, vehiculos, ofertas);
         imprimirObjetos();
     }
     
@@ -77,6 +77,8 @@ public class App extends Application {
         Usuario.guardarArchivoUsuarios("usuarios.ser", usuarios);
         Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
         Oferta.guardarArchivoOfertas("ofertas.ser", ofertas);
+//        Usuario.saveFile(usuarios, "usuarios.txt");
+//        Vehiculo.saveFile(vehiculos, "vehiculos.txt");
     }
 
     public static void setRoot(String fxml) throws IOException {

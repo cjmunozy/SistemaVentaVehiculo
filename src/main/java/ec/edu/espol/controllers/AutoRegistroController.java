@@ -6,10 +6,14 @@ package ec.edu.espol.controllers;
 
 import ec.edu.espol.model.Auto;
 import ec.edu.espol.model.TipoVehiculo;
+import ec.edu.espol.model.Utilitaria;
 import ec.edu.espol.model.Vehiculo;
 import ec.edu.espol.sistemaventavehiculo.App;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -17,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -119,10 +124,36 @@ public class AutoRegistroController implements Initializable {
         
 }
 
-
-
-
-
-
+    @FXML
+    private void adjuntarFoto(MouseEvent event) {
+         FileChooser fileChooser = new FileChooser();
+         fileChooser.setTitle("Selecciona una imagen");    
+         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Archivos de Imagen", "*.jpg", "*.jpeg", "*.png");
+         fileChooser.getExtensionFilters().add(imageFilter);
+         File selectedFile = fileChooser.showOpenDialog(null);
+         
+           if (selectedFile != null) {
+            try {
+                String placa1 = placa.getText();
+                System.out.println("hola"+placa1);
+                String rutaImagenSeleccionada = selectedFile.getAbsolutePath();
+                String carpetaDestino = "src/main/resources/Vehiculos_Imagenes"; 
+                String nuevoNombreArchivo = placa1 + ".jpg"; 
+                String rutaDestino = carpetaDestino + File.separator + nuevoNombreArchivo;
+                File destinoFile = new File(rutaDestino);
+                Files.copy(selectedFile.toPath(), destinoFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Utilitaria.relacionarImagen(placa1, rutaDestino);
+            } catch (IOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al adjuntar la imagen");
+                alert.show();
+            }
+           }
+    }
+    
 }
+
+
+
+
+
 

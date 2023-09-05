@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
@@ -53,6 +54,8 @@ public class AceptarOfertaController implements Initializable {
     private TableColumn<Contenido, String> tcApellidos;
     @FXML
     private BorderPane mainPane;
+    
+    private static Oferta oferta;
 
     @FXML
     private void regresar(MouseEvent event) throws IOException {
@@ -111,6 +114,14 @@ public class AceptarOfertaController implements Initializable {
     
     @FXML
     private void aceptarOferta(MouseEvent event) {
+        if(oferta != null){
+            Usuario.aceptarOferta(App.getUsuarios(), App.getOfertas(), App.getVehiculos(), oferta);
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Oferta Aceptada, se envió una notificación al ofertante");
+            a.show();
+        } else{
+            Alert a = new Alert(Alert.AlertType.ERROR, "Seleccione primero una de las ofertas de la tabla");
+            a.show();
+        }
     }
 
     @Override
@@ -139,17 +150,24 @@ public class AceptarOfertaController implements Initializable {
         }
           ObservableList<Contenido> listaElementos = FXCollections.observableArrayList(elementos);
           tablaOfertas.setItems(listaElementos);
-          
-          
+          tablaOfertas.setOnMouseClicked(e -> obtenerOfertaSeleccionada(e));
         }
-     
-
 
         private void mostrarImagen(Vehiculo v){
         for(Imagen i : App.getImagenes())
             if(i.getVehiculo().equals(v))
                 imgvVehiculo.setImage(new Image(this.getClass().getResource(i.getRuta()).toString()));
     }
+    
+        private void obtenerOfertaSeleccionada(MouseEvent e){
+            if(e.getClickCount() == 1){
+                String correo = tablaOfertas.getSelectionModel().getSelectedItem().getCorreo();
+                for(Oferta ofer : App.getOfertas()){
+                    if(ofer.getCorreo().equals(correo))
+                        oferta = ofer;
+                }
+            }
+        }
 }
 
    

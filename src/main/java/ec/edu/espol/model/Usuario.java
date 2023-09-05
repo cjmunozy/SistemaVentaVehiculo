@@ -619,8 +619,6 @@ public static boolean encontrarVehiculos(Vehiculo vehiculo,double recoMin,double
         Buzon b = new Buzon();
         b.enviarCorreo(oferta);
         oferta.eliminarOfertas(usuarios, ofertas);
-        Oferta.guardarArchivoOfertas("ofertas.ser", ofertas);
         vehiculo.eliminarVehiculo(vehiculos);
-        Vehiculo.guardarArchivoVehiculos("vehiculos.ser", vehiculos);
     }
 }

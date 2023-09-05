@@ -56,8 +56,10 @@ public class CamionetaRegistroController implements Initializable {
     @FXML
     private TextField transmision;
     
-    private boolean imagenAgregada = false;
+    private boolean imagenSeleccionada = false;
     private Imagen imagen;
+    private File origen;
+    private File destino;
 
     /**
      * Initializes the controller class.
@@ -89,7 +91,7 @@ public class CamionetaRegistroController implements Initializable {
                 transmisionText.isEmpty() || vidriosTextStr.isEmpty() || traccionText.isEmpty()) {
                 throw new IllegalArgumentException("Por favor, complete todos los campos.");
             }
-            if(imagenAgregada){
+            if(imagenSeleccionada){
                 double recorridoText = Double.parseDouble(recorridoTextStr);
                 int añoText = Integer.parseInt(añoTextStr);
                 double precioText = Double.parseDouble(precioTextStr);
@@ -99,6 +101,8 @@ public class CamionetaRegistroController implements Initializable {
                 if (nuevaCamioneta != null) {
                     App.getVehiculos().add(nuevaCamioneta);
                     App.getUsuario().agregarVehiculo(nuevaCamioneta);
+                    Files.copy(origen.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    imagen = new Imagen(placaText, "/Vehiculos_Imagenes/" + placaText + origen.getName().substring(origen.getName().lastIndexOf(".")));
                     imagen.setVehiculo(nuevaCamioneta);
                     App.getImagenes().add(imagen);
                     limpiarCampos();
@@ -137,29 +141,25 @@ public class CamionetaRegistroController implements Initializable {
 
     @FXML
     private void adjuntarFoto(MouseEvent event) {
-         FileChooser fileChooser = new FileChooser();
-         fileChooser.setTitle("Selecciona una imagen");    
-         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Archivos de Imagen", "*.jpg", "*.jpeg", "*.png");
-         fileChooser.getExtensionFilters().add(imageFilter);
-         File selectedFile = fileChooser.showOpenDialog(null);
+        if(!placa.getText().isEmpty()){
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Selecciona una imagen");    
+            FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Archivos de Imagen", "*.jpg", "*.jpeg", "*.png");
+            fileChooser.getExtensionFilters().add(imageFilter);
+            origen = fileChooser.showOpenDialog(null);
          
-           if (selectedFile != null) {
-            try {
+            if (origen != null) {
                 String placa1 = placa.getText();
-                System.out.println("hola"+placa1);
-                String rutaImagenSeleccionada = selectedFile.getAbsolutePath();
-                String carpetaDestino = "src/main/resources/Vehiculos_Imagenes"; 
-                String nombre = selectedFile.getName();
-                String nuevoNombreArchivo = placa1 + nombre.substring(nombre.lastIndexOf(".") + 1);
+                String carpetaDestino = "src/main/resources/Vehiculos_Imagenes";
+                String nombre = origen.getName();
+                String nuevoNombreArchivo = placa1 + nombre.substring(nombre.lastIndexOf("."));
                 String rutaDestino = carpetaDestino + File.separator + nuevoNombreArchivo;
-                File destinoFile = new File(rutaDestino);
-                Files.copy(selectedFile.toPath(), destinoFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                imagen = new Imagen(placa1, "/Vehiculos_Imagenes/" + nuevoNombreArchivo);
-                imagenAgregada = true;
-            } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al adjuntar la imagen");
-                alert.show();
-            }
+                destino = new File(rutaDestino);
+                imagenSeleccionada = true;
            }
+        } else{
+            Alert a = new Alert(Alert.AlertType.ERROR, "Rellene primero los demás campos antes de agregar la foto");
+            a.show();
+        }
     }
 }

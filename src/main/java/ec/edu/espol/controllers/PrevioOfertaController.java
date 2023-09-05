@@ -71,7 +71,6 @@ public class PrevioOfertaController implements Initializable {
         }catch(NullPointerException e){
             Alert a = new Alert(Alert.AlertType.ERROR,e.getMessage());
             a.show();
-
         }
     }
     

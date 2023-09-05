@@ -49,8 +49,10 @@ public class MotoRegistroController implements Initializable {
     @FXML
     private TextField combustible;
     
-    private boolean imagenAgregada = false;
+    private boolean imagenSeleccionada = false;
     private Imagen imagen;
+    private File origen;
+    private File destino;
 
     /**
      * Initializes the controller class.
@@ -78,7 +80,7 @@ public class MotoRegistroController implements Initializable {
             modeloText.isEmpty() || precioText.isEmpty() || combustibleText.isEmpty()) {
             throw new IllegalArgumentException("Por favor, complete todos los campos.");
         }
-        if(imagenAgregada){
+        if(imagenSeleccionada){
             double recorridoDouble = Double.parseDouble(recorridoText);
             int añoInt = Integer.parseInt(añoText);
             double precioDouble = Double.parseDouble(precioText);
@@ -87,6 +89,8 @@ public class MotoRegistroController implements Initializable {
             if (nuevaMoto != null) {
                 App.getVehiculos().add(nuevaMoto);
                 App.getUsuario().agregarVehiculo(nuevaMoto);
+                Files.copy(origen.toPath(), destino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                imagen = new Imagen(placaText, "/Vehiculos_Imagenes/" + placaText + origen.getName().substring(origen.getName().lastIndexOf(".")));
                 imagen.setVehiculo(nuevaMoto);
                 App.getImagenes().add(imagen);
                 limpiarCampos();
@@ -124,29 +128,25 @@ public class MotoRegistroController implements Initializable {
 
     @FXML
     private void adjuntarFoto(MouseEvent event) {
-         FileChooser fileChooser = new FileChooser();
-         fileChooser.setTitle("Selecciona una imagen");    
-         FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Archivos de Imagen", "*.jpg", "*.jpeg", "*.png");
-         fileChooser.getExtensionFilters().add(imageFilter);
-         File selectedFile = fileChooser.showOpenDialog(null);
+        if(!placa.getText().isEmpty()){
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Selecciona una imagen");    
+            FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Archivos de Imagen", "*.jpg", "*.jpeg", "*.png");
+            fileChooser.getExtensionFilters().add(imageFilter);
+            origen = fileChooser.showOpenDialog(null);
          
-           if (selectedFile != null) {
-            try {
+            if (origen != null) {
                 String placa1 = placa.getText();
-                System.out.println("hola"+placa1);
-                String rutaImagenSeleccionada = selectedFile.getAbsolutePath();
                 String carpetaDestino = "src/main/resources/Vehiculos_Imagenes";
-                String nombre = selectedFile.getName();
-                String nuevoNombreArchivo = placa1 + nombre.substring(nombre.lastIndexOf(".") + 1); 
+                String nombre = origen.getName();
+                String nuevoNombreArchivo = placa1 + nombre.substring(nombre.lastIndexOf("."));
                 String rutaDestino = carpetaDestino + File.separator + nuevoNombreArchivo;
-                File destinoFile = new File(rutaDestino);
-                Files.copy(selectedFile.toPath(), destinoFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                imagen = new Imagen(placa1, "/Vehiculos_Imagenes/" + nuevoNombreArchivo);
-                imagenAgregada = true;
-            } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al adjuntar la imagen");
-                alert.show();
-            }
+                destino = new File(rutaDestino);
+                imagenSeleccionada = true;
            }
+        } else{
+            Alert a = new Alert(Alert.AlertType.ERROR, "Rellene primero los demás campos antes de agregar la foto");
+            a.show();
+        }
     }
 }

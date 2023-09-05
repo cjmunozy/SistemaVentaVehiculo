@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controllers.PrevioOfertaController">
+   <children>
+      <ImageView fitHeight="420.0" fitWidth="654.0" layoutX="-54.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../img/fondito.jpg" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="76.0" layoutY="71.0" prefHeight="274.0" prefWidth="464.0" style="-fx-background-color: white; -fx-border-color: #FFF09B; -fx-border-width: 5;">
+         <children>
+            <Label layoutX="54.0" layoutY="20.0" prefHeight="43.0" prefWidth="222.0" text="Gestión de ofertas">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="29.0" fitWidth="35.0" layoutX="14.0" layoutY="27.0" onMouseClicked="#regresar" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../img/regresar.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="39.0" layoutY="92.0" text="Para revisar ofertas de un vehículo, ingrese su respectiva placa:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="placaIngresada" layoutX="144.0" layoutY="124.0" promptText="ej. GAA-0001" />
+            <Label layoutX="104.0" layoutY="128.0" text="Placa:" />
+            <Button layoutX="168.0" layoutY="177.0" mnemonicParsing="false" onMouseClicked="#mostrarOfertas" prefHeight="43.0" prefWidth="106.0" text="Mostrar ofertas" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

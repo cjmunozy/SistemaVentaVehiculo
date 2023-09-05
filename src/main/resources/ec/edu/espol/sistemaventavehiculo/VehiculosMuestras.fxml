@@ -28,13 +28,6 @@
    <right>
       <ImageView fx:id="imgvVehiculo" fitHeight="500.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
    </right>
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="btnOfertar" mnemonicParsing="false" onMouseClicked="#ofertar" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #0598ff;" text="Ofertar" textFill="WHITE" />
-         </children>
-      </HBox>
-   </bottom>
    <center>
       <TableView fx:id="tbViewInformacion" prefHeight="265.0" prefWidth="270.0" BorderPane.alignment="CENTER">
          <columns>
@@ -56,4 +49,15 @@
          </BorderPane.margin>
       </TableView>
    </center>
+   <bottom>
+      <HBox prefHeight="89.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnOfertar" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#ofertar" prefHeight="26.0" prefWidth="126.0" style="-fx-background-color: #0598ff;" text="Ofertar" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="350.0" top="20.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>

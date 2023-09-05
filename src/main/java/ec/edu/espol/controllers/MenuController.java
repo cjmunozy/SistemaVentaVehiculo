@@ -4,15 +4,22 @@
  */
 package ec.edu.espol.controllers;
 
+import ec.edu.espol.model.Vehiculo;
 import ec.edu.espol.sistemaventavehiculo.App;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -29,7 +36,10 @@ public class MenuController implements Initializable {
     private ImageView imgViewAceptarOferta;
     @FXML
     private ImageView imgViewSesion;
-
+    
+    private static ArrayList<Vehiculo> vehiculosFiltrados;
+    private static Stage primaryStage;
+    private static Stage secondaryStage;
     /**
      * Initializes the controller class.
      */
@@ -50,8 +60,8 @@ public class MenuController implements Initializable {
 
     @FXML
     private void aceptarOferta(MouseEvent event) throws IOException {
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Nada por ahora");
-        a.show();
+        App.setRoot("PrevioOferta");
+
     }
 
     @FXML
@@ -64,5 +74,20 @@ public class MenuController implements Initializable {
     private void perfilUsuario(MouseEvent event) throws IOException {
         App.setRoot("PerfilUsuario");
     }
+     private void vehiculosScene(MouseEvent event) throws IOException {
+        primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        BorderPane newView = FXMLLoader.load(getClass().getResource("/ec/edu/espol/sistemaventavehiculo/AceptarOferta.fxml"));
+        Scene newScene = new Scene(newView);
+        secondaryStage = new Stage();
+        secondaryStage.setScene(newScene);
+        secondaryStage.setMaximized(true);
+        secondaryStage.setOnCloseRequest(e -> regresar());
+        primaryStage.hide();
+        secondaryStage.show();
+    }
     
+    public void regresar(){
+        primaryStage.show();
+    }
 }
+

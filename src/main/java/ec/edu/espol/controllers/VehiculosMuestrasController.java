@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -106,8 +107,16 @@ public class VehiculosMuestrasController implements Initializable {
     }    
 
     @FXML
-    private void ofertar(MouseEvent event) {
-    }
+    private void ofertar(MouseEvent event) throws IOException {
+        Vehiculo vehiculoSeleccionado = tbViewInformacion.getSelectionModel().getSelectedItem();
+        if (vehiculoSeleccionado != null) {
+            App.setRoot("HacerOferta");
+        }else{
+            Alert a = new Alert(Alert.AlertType.WARNING, "Por favor, seleccione un vehiculo");
+            a.show();
+        }
+}
+    
     
     private void obtenerVehiculoSeleccionado(MouseEvent e){
         Vehiculo v;
